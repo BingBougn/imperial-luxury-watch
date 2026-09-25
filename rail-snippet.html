@@ -1,0 +1,149 @@
+<style>
+  /* Right-hand rail: jump straight to a step instead of scrolling to it. */
+  .clock-rail{
+    position:fixed; right:clamp(10px,1.6vw,22px); top:50%;
+    transform:translateY(-50%); z-index:40;
+    display:flex; flex-direction:column; gap:16px;
+    padding:16px 10px;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  .clock-rail.is-on{ opacity:1; pointer-events:auto; }
+  .clock-rail::before{
+    content:""; position:absolute; right:14px; top:20px; bottom:20px;
+    width:1px; background:var(--hairline);
+  }
+  .clock-rail button{
+    position:relative; display:flex; align-items:center; justify-content:flex-end;
+    gap:10px; padding:2px; border:0; background:none; cursor:pointer;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:0.78rem; letter-spacing:0.04em; color:var(--text-dim);
+    transition:color .25s ease;
+  }
+  .clock-rail button span{ opacity:0; transition:opacity .25s ease; white-space:nowrap; }
+  .clock-rail button i{
+    width:9px; height:9px; flex:none; border-radius:50%;
+    background:var(--hairline);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .clock-rail button:hover, .clock-rail button:focus-visible, .clock-rail button.is-active{ color:var(--text); }
+  .clock-rail button:hover span, .clock-rail button:focus-visible span, .clock-rail button.is-active span{ opacity:1; }
+  .clock-rail button:hover i{ background:var(--text-dim); }
+  .clock-rail button.is-active i{ background:var(--accent-strong); transform:scale(1.5); }
+  @media (hover:none) and (pointer:coarse){
+    /* finger-sized hit area without growing the dot */
+    .clock-rail button{ padding:8px 2px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .clock-rail, .clock-rail button, .clock-rail button i, .clock-rail button span{ transition:none; }
+  }
+
+  /* ---- keeping the bottom step (2020) inside every laptop screen ----
+     The stage is a fixed budget: 20 + heading + 10 + 0.86*dial + 10 + step + 20
+     must stay under (viewport height - 76px of nav). The dial alone is capped at
+     48vh, so on shorter screens the heading and the step have to give ground.
+     These steps only engage BELOW the height where the full-size layout fits, so
+     a tall window keeps exactly the sizing it has now. Width-scoped above the
+     mobile breakpoint so the phone rules keep their own dial size. */
+  /* The dial takes the space that is actually left rather than a guessed
+     fraction of the viewport: the stage is a fixed-height flex column, so
+     giving the frame `flex:1` hands it exactly (stage - heading - reserve).
+     max-height keeps it square once width is the binding limit. The reserve
+     below plus the frame's own empty band (the dial stops at 83%) is what the
+     bottom step lives in, so it cannot be pushed off-screen at any height. */
+  @media (min-width:761px){
+    .clock-stage{ padding-bottom:140px; }
+    .clock-frame{
+      flex:1 1 auto; min-height:0;
+      width:auto; height:auto;
+      max-width:min(600px, 44vw); max-height:min(600px, 44vw);
+      aspect-ratio:1; margin:10px auto 0;
+    }
+  }
+  /* Shorter screens: the fixed costs (heading, step copy) give ground so the
+     reserve above stays sufficient. Only engages below the height at which the
+     full-size layout already fits, so a tall window is untouched. */
+  @media (min-width:761px) and (max-height:820px){
+    .clock-stage{ padding-top:16px; padding-bottom:124px; }
+    .clock-stage .section-head h2{ font-size:clamp(1.5rem, 3.1vh, 2.7rem); }
+    .clock-stage .section-head p{ font-size:0.92rem; line-height:1.5; }
+    .clock-label .yr{ font-size:0.95rem; margin-bottom:4px; }
+    .clock-label h3{ font-size:1.4rem; margin-bottom:6px; }
+    .clock-label p{ font-size:1rem; line-height:1.5; }
+  }
+  @media (min-width:761px) and (max-height:700px){
+    .clock-stage{ padding-bottom:112px; }
+    .clock-stage .section-head h2{ font-size:clamp(1.3rem, 2.9vh, 2rem); }
+    .clock-stage .section-head p{ font-size:0.88rem; }
+    .clock-label{ width:clamp(180px, 20vw, 260px); }
+    .clock-label h3{ font-size:1.25rem; }
+    .clock-label p{ font-size:0.94rem; line-height:1.45; }
+  }
+  @media (min-width:761px) and (max-height:580px){
+    .clock-stage{ padding-top:12px; padding-bottom:96px; }
+    .clock-label h3{ font-size:1.1rem; }
+    .clock-label p{ font-size:0.88rem; }
+  }
+  /* Phones: the step sits under the frame, so the reserve is the stage padding. */
+  @media (max-width:760px) and (max-height:680px){
+    .clock-frame{ width:min(260px, 58vw, 26vh); }
+    .clock-stage .section-head p{ font-size:0.88rem; }
+    .clock-label h3{ font-size:1.25rem; }
+    .clock-label p{ font-size:0.94rem; line-height:1.45; }
+  }
+</style>
+<script>
+/* ---- maison: right-hand rail to jump between steps ---- */
+(function(){
+  const sec = document.querySelector('#maison .clock-scroll');
+  const labels = Array.from(document.querySelectorAll('#maison .clock-label'));
+  if(!sec || labels.length < 2) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const last = labels.length - 1;
+
+  const rail = document.createElement('nav');
+  rail.className = 'clock-rail';
+  rail.setAttribute('aria-label', 'Étapes de notre histoire');
+
+  const buttons = labels.map(function(label, i){
+    const year = label.querySelector('.yr');
+    const title = label.querySelector('h3');
+    const b = document.createElement('button');
+    b.type = 'button';
+    const span = document.createElement('span');
+    span.textContent = year ? year.textContent : String(i + 1);
+    b.appendChild(span);
+    b.appendChild(document.createElement('i'));
+    b.setAttribute('aria-label', (year ? year.textContent + ' : ' : '') + (title ? title.textContent : ''));
+    b.addEventListener('click', function(){
+      // step i sits at progress i/last through the scroll region
+      const total = sec.offsetHeight - window.innerHeight;
+      const top = window.scrollY + sec.getBoundingClientRect().top + (i / last) * total;
+      window.scrollTo({top: top, behavior: reduce ? 'auto' : 'smooth'});
+    });
+    rail.appendChild(b);
+    return b;
+  });
+
+  document.body.appendChild(rail);
+
+  function sync(){
+    const rect = sec.getBoundingClientRect();
+    const mid = window.innerHeight / 2;
+    rail.classList.toggle('is-on', rect.top < mid && rect.bottom > mid);
+
+    const total = sec.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    const idx = Math.round(p * last);
+    buttons.forEach(function(b, i){
+      const on = i === idx;
+      b.classList.toggle('is-active', on);
+      if(on){ b.setAttribute('aria-current', 'true'); } else { b.removeAttribute('aria-current'); }
+    });
+  }
+
+  window.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  sync();
+})();
+</script>

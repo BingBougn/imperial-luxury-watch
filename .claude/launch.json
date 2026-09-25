@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dist-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8743", "--directory", "dist"],
+      "port": 8743
+    },
+    {
+      "name": "dist-preview-range",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["C:\\Users\\mathisd\\AppData\\Local\\Temp\\claude\\C--Users-mathisd-Documents-Projets-meridien-horlogerie\\5f8eacda-e26d-4072-b641-1ae28cb8cdcd\\scratchpad\\range_server.py", "8745", "dist"],
+      "port": 8745
+    }
+  ]
+}

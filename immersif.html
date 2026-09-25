@@ -1,0 +1,198 @@
+<title>Imperial Immersif</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --graphite:#0c0e10;
+    --graphite-2:#15181b;
+    --cobalt-bright:#4f9fd6;
+    --bg: var(--graphite);
+    --surface: var(--graphite-2);
+    --hairline:#2a2f33;
+    --text:#eaedee;
+    --text-dim:#9aa3a8;
+    --accent-strong: var(--cobalt-bright);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Archivo',ui-sans-serif,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Cormorant',Georgia,serif; font-weight:500; text-wrap:balance; margin:0; }
+  a{color:inherit;}
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  @media(max-width:640px){ .wrap{padding:0 20px;} }
+
+  .btn{
+    font-family:'Archivo',sans-serif; font-size:0.78rem; letter-spacing:0.08em;
+    text-transform:uppercase; font-weight:600; padding:12px 22px;
+    border:1px solid var(--text); background:transparent; color:var(--text);
+    text-decoration:none; display:inline-block; cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .btn:hover, .btn:focus-visible{ background:var(--text); color:var(--bg); }
+  .btn-accent{ border-color:var(--accent-strong); background:var(--accent-strong); color:#0a1014; }
+  .btn-accent:hover, .btn-accent:focus-visible{ background:transparent; color:var(--accent-strong); }
+  :focus-visible{ outline:2px solid var(--accent-strong); outline-offset:3px; }
+
+  /* ---- the page that follows the world ---- */
+  main{ position:relative; z-index:30; background:var(--bg); }
+  section{ padding:96px 0; border-top:1px solid var(--hairline); }
+  .section-head{ margin-bottom:48px; }
+  .section-head h2{ font-size:clamp(2rem,3.4vw,2.7rem); max-width:20ch; }
+  .section-head p{ max-width:52ch; color:var(--text-dim); line-height:1.6; margin:16px 0 0; }
+
+  .listing{ display:flex; flex-direction:column; }
+  .listing a{
+    display:grid; grid-template-columns:1fr auto auto; gap:24px; align-items:baseline;
+    padding:26px 0; border-top:1px solid var(--hairline); text-decoration:none;
+    transition:padding-left .25s ease;
+  }
+  .listing a:last-child{ border-bottom:1px solid var(--hairline); }
+  .listing a:hover, .listing a:focus-visible{ padding-left:12px; }
+  .listing h3{ font-size:1.5rem; font-style:italic; }
+  .listing .ref{
+    font-family:'IBM Plex Mono',monospace; font-size:0.76rem;
+    color:var(--text-dim); letter-spacing:0.04em;
+  }
+  .listing .price{ font-family:'IBM Plex Mono',monospace; font-size:1rem; }
+  @media(max-width:700px){
+    .listing a{ grid-template-columns:1fr; gap:8px; }
+  }
+
+  .cta{ text-align:center; padding:110px 0; background:var(--surface); border-top:1px solid var(--hairline); }
+  .cta h2{ font-size:clamp(2.1rem,4vw,3.1rem); font-style:italic; margin-bottom:20px; }
+  .cta p{ color:var(--text-dim); max-width:44ch; margin:0 auto 36px; line-height:1.6; }
+
+  footer{ border-top:1px solid var(--hairline); padding:48px 0 40px; position:relative; z-index:30; background:var(--bg); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:0.78rem; color:var(--text-dim);
+  }
+
+  /* ---- scroll-world theme overrides (unlayered: they beat the engine defaults) ---- */
+  .sw-root{
+    --sw-bg:#0c0e10;
+    --sw-ink:#eaedee;
+    --sw-ink-soft:#9aa3a8;
+    --sw-accent:#4f9fd6;
+    --sw-font-display:'Cormorant',Georgia,serif;
+    --sw-font-body:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  }
+  /* the engine's built-in section counter and scroll cue are noise here */
+  .sw-copy__num, .sw-hint{ display:none !important; }
+  .sw-copy__title{ font-style:italic; font-weight:500; letter-spacing:0; }
+  .sw-copy__eyebrow{ font-family:'Archivo',sans-serif; font-weight:600; }
+  .sw-brand__name{ letter-spacing:0.22em; font-weight:600; }
+  .sw-brand__mark{ display:none; }
+  .sw-btn{ border-radius:0; text-transform:uppercase; letter-spacing:0.08em; font-size:0.78rem; }
+  .sw-btn--primary{ background:var(--sw-accent); color:#0a1014; }
+  .sw-btn--ghost{ color:var(--sw-ink); border-color:color-mix(in srgb, var(--sw-ink) 40%, transparent); }
+  .sw-route__label{ background:color-mix(in srgb, #0c0e10 88%, transparent); color:var(--sw-ink); border-color:var(--hairline); }
+  /* the fixed film layers step aside once the flight is over */
+  .sw-sky, .sw-stage, .sw-copylayer, .sw-route, .sw-scrollbar, .sw-topbar{ transition:opacity .45s ease; }
+</style>
+
+<div id="world"></div>
+
+<main>
+  <section id="collection">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>La sélection du moment.</h2>
+        <p>Une centaine de références en stock à tout instant, chacune contrôlée et garantie par notre atelier.</p>
+      </div>
+      <div class="listing">
+        <a href="#estimation">
+          <h3>Rolex Submariner Date</h3>
+          <span class="ref">Réf. 126610LN · 2022</span>
+          <span class="price">11&nbsp;900&nbsp;€</span>
+        </a>
+        <a href="#estimation">
+          <h3>Patek Philippe Calatrava</h3>
+          <span class="ref">Réf. 5227R · 2019</span>
+          <span class="price">32&nbsp;500&nbsp;€</span>
+        </a>
+        <a href="#estimation">
+          <h3>Omega Speedmaster Professional</h3>
+          <span class="ref">Réf. 310.30.42.50.01.001 · 2021</span>
+          <span class="price">6&nbsp;400&nbsp;€</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="estimation">
+    <div class="wrap">
+      <h2>Vendre une montre. Une estimation en 48 heures.</h2>
+      <p>Nos experts évaluent votre montre gratuitement et vous proposent une offre ferme, sans engagement de votre part.</p>
+      <a href="#" class="btn btn-accent">Demander une estimation</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Imperial Luxury Watch, 9 rue de la Paix, 75002 Paris</span>
+    <span>Site de démonstration</span>
+  </div>
+</footer>
+
+<script>__ENGINE__</script>
+<script>
+mountScrollWorld(document.getElementById('world'), {
+  brand: { name: 'IMPERIAL', href: '#' },
+  nav: false,
+  atmosphere: false,
+  diveScroll: 1.9,
+  crossfade: 0.18,
+  sections: [
+    {
+      id: 'maison',
+      label: 'La maison',
+      clip: '__VIDEO_1__',
+      accent: '#4f9fd6',
+      linger: 0.45,
+      eyebrow: 'Paris, depuis 2014',
+      title: "L'exigence horlogère, sans le prix du neuf.",
+      body: "Imperial achète, authentifie et revend des garde-temps suisses d'exception, garantie deux ans incluse."
+    },
+    {
+      id: 'authentification',
+      label: 'Authentification',
+      clip: '__VIDEO_2__',
+      accent: '#4f9fd6',
+      linger: 0.4,
+      eyebrow: 'Le contrôle en 12 points',
+      title: 'Douze contrôles avant la mise en vente.',
+      body: "Mouvement, boîtier, numéros de série, papiers, étanchéité : chaque pièce est démontée et vérifiée par nos horlogers.",
+      cta: {
+        primary: { label: 'Voir la sélection', href: '#collection' },
+        secondary: { label: 'Vendre ma montre', href: '#estimation' }
+      }
+    }
+  ],
+  connectors: []
+});
+
+/* Once the flight is finished, the fixed film layers must stop covering the page. */
+(function(){
+  const world = document.getElementById('world');
+  const track = world.querySelector('.sw-track');
+  const layers = world.querySelectorAll('.sw-sky,.sw-stage,.sw-copylayer,.sw-route,.sw-scrollbar,.sw-topbar');
+  if(!track) return;
+  function sync(){
+    const end = track.offsetTop + track.offsetHeight - window.innerHeight;
+    const past = (window.scrollY || window.pageYOffset) > end;
+    layers.forEach(l => {
+      l.style.opacity = past ? '0' : '';
+      l.style.pointerEvents = past ? 'none' : '';
+    });
+  }
+  window.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  sync();
+})();
+</script>

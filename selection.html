@@ -1,0 +1,792 @@
+<title>La Sélection — Imperial</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant:ital,wght@0,300;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --graphite:#0c0e10;
+    --graphite-2:#15181b;
+    --graphite-3:#1e2226;
+    --cobalt:#1f5c82;
+    --cobalt-bright:#4f9fd6;
+    --platinum:#eef0f1;
+    --platinum-3:#c7ccd0;
+
+    --bg: var(--graphite);
+    --bg-raised: var(--graphite-2);
+    --surface: var(--graphite-2);
+    --hairline: #2a2f33;
+    --text: #eaedee;
+    --text-dim: #9aa3a8;
+    --accent: var(--cobalt-bright);
+    --accent-strong: var(--cobalt-bright);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Archivo',ui-sans-serif,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Cormorant',Georgia,serif; font-weight:500; letter-spacing:0.01em; text-wrap:balance; margin:0; }
+  a{ color:inherit; }
+  .wrap{ max-width:1400px; margin:0 auto; padding-left:32px; padding-right:32px; }
+  @media(max-width:640px){ .wrap{padding-left:20px; padding-right:20px;} }
+
+  /* ---------- nav (identical to the homepage) ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .wordmark{
+    font-family:'Cormorant',serif; font-size:1.5rem; letter-spacing:0.22em; font-weight:600;
+    text-decoration:none; display:flex; align-items:baseline; gap:8px; color:#e8ae31;
+  }
+  .wordmark small{
+    font-family:'Archivo',sans-serif; font-size:0.5rem; letter-spacing:0.18em;
+    color:var(--text-dim); font-weight:600;
+  }
+  .nav-links{ display:flex; gap:36px; align-items:center; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; }
+  .nav-links a{ text-decoration:none; color:var(--text-dim); transition:color .2s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--accent-strong); }
+  .nav-links a[aria-current]{ color:var(--text); }
+  .btn{
+    font-family:'Archivo',sans-serif; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;
+    padding:12px 22px; border:1px solid var(--text); background:transparent; color:var(--text);
+    cursor:pointer; text-decoration:none; display:inline-block;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn:hover, .btn:focus-visible{ background:var(--text); color:var(--bg); }
+  .btn-accent{ border-color:var(--accent-strong); background:var(--accent-strong); color:#0a1014; }
+  .btn-accent:hover, .btn-accent:focus-visible{ background:transparent; color:var(--accent-strong); }
+  @media(max-width:860px){ .nav-links{ display:none; } }
+  @media(max-width:1000px){ .nav-links{ gap:22px; font-size:0.76rem; } .wordmark small{ display:none; } .nav .btn{ padding:10px 14px; white-space:nowrap; } }
+  @media(max-width:480px){ .nav .btn{ padding:9px 12px; font-size:0.68rem; letter-spacing:0.05em; } .wordmark{ font-size:1.2rem; letter-spacing:0.16em; } .wordmark small{ display:none; } }
+  :focus-visible{ outline:2px solid var(--accent-strong); outline-offset:3px; }
+
+  /* ---------- page header ---------- */
+  .page-head{ padding-top:72px; padding-bottom:40px; border-bottom:1px solid var(--hairline); }
+  .page-head h1{ font-size:clamp(2.2rem,4.4vw,3.2rem); font-style:italic; max-width:18ch; }
+  .page-head p{ max-width:56ch; color:var(--text-dim); line-height:1.6; margin:18px 0 0; font-size:1.02rem; }
+
+  /* ---------- shop layout: sidebar + catalog ---------- */
+  .shop-layout{ display:flex; align-items:flex-start; gap:52px; padding-top:44px; }
+  .filter-sidebar{ width:252px; flex:none; }
+  @media(min-width:901px){ .filter-sidebar{ position:sticky; top:104px; } }
+
+  .filter-sidebar-head{ display:flex; align-items:baseline; justify-content:space-between; }
+  .filter-sidebar-head h2{
+    font-family:'Archivo',sans-serif; font-size:0.82rem; font-weight:700;
+    letter-spacing:0.09em; text-transform:uppercase;
+  }
+  #clear-all{
+    background:none; border:0; padding:0; cursor:pointer;
+    font-family:'Archivo',sans-serif; font-size:0.78rem; color:var(--text-dim);
+  }
+  #clear-all:hover{ color:var(--accent-strong); }
+  .result-count{ margin:10px 0 0; font-size:0.82rem; color:var(--text-dim); }
+
+  .filter-section{ border-top:1px solid var(--hairline); padding:18px 0; }
+  .filter-section summary{
+    display:flex; align-items:center; justify-content:space-between; cursor:pointer;
+    list-style:none; font-family:'Archivo',sans-serif; font-size:0.92rem; font-weight:600;
+  }
+  .filter-section summary::-webkit-details-marker{ display:none; }
+  .filter-section summary .chev{
+    width:8px; height:8px; flex:none;
+    border-right:1.4px solid var(--text-dim); border-bottom:1.4px solid var(--text-dim);
+    transform:rotate(45deg); transition:transform .2s ease;
+  }
+  .filter-section[open] summary .chev{ transform:rotate(-135deg); }
+  .filter-section-body{ padding-top:16px; }
+  .filter-section-meta{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.78rem; color:var(--text-dim); margin-bottom:10px;
+  }
+  .reset-link{
+    background:none; border:0; padding:0; cursor:pointer;
+    font-family:'Archivo',sans-serif; font-size:0.78rem; color:var(--text-dim); text-decoration:underline;
+  }
+  .reset-link:hover{ color:var(--accent-strong); }
+
+  .check-row{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:0.88rem; cursor:pointer; }
+  .check-row input{ width:15px; height:15px; accent-color:var(--accent-strong); cursor:pointer; }
+  .check-row span{ flex:1; }
+  .check-row i{ font-style:normal; font-size:0.78rem; color:var(--text-dim); }
+
+  .price-hint{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+    font-size:0.8rem; color:var(--text-dim); margin:0 0 18px;
+  }
+  .price-slider{ position:relative; height:16px; margin-bottom:18px; }
+  .price-slider .price-track{
+    position:absolute; top:50%; left:0; right:0; height:2px;
+    background:var(--hairline); transform:translateY(-50%);
+  }
+  .price-slider .price-track-fill{
+    position:absolute; top:50%; height:2px; background:var(--accent-strong); transform:translateY(-50%);
+  }
+  .price-slider input[type="range"]{
+    position:absolute; top:0; left:0; width:100%; margin:0; height:16px;
+    background:transparent; -webkit-appearance:none; appearance:none; pointer-events:none;
+  }
+  .price-slider input[type="range"]::-webkit-slider-runnable-track{ background:transparent; }
+  .price-slider input[type="range"]::-webkit-slider-thumb{
+    pointer-events:all; -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
+    background:var(--accent-strong); border:2px solid var(--bg); cursor:pointer; margin-top:0;
+  }
+  .price-slider input[type="range"]::-moz-range-thumb{
+    pointer-events:all; width:15px; height:15px; border-radius:50%;
+    background:var(--accent-strong); border:2px solid var(--bg); cursor:pointer;
+  }
+  .price-slider input[type="range"]::-moz-range-track{ background:transparent; }
+
+  .price-inputs{ display:flex; align-items:center; gap:10px; }
+  .price-inputs label{
+    flex:1; display:flex; align-items:center; gap:4px;
+    border:1px solid var(--hairline); padding:8px 10px;
+    font-family:'IBM Plex Mono'; font-size:0.8rem; color:var(--text-dim);
+  }
+  .price-inputs input{
+    width:100%; border:0; background:none; color:var(--text);
+    font-family:'IBM Plex Mono'; font-size:0.8rem;
+  }
+  .price-inputs input:focus{ outline:none; }
+  .price-inputs input::-webkit-outer-spin-button,
+  .price-inputs input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .price-inputs input[type="number"]{ -moz-appearance:textfield; }
+  .price-inputs span{ color:var(--text-dim); }
+
+  .catalog-area{ flex:1; min-width:0; }
+  .catalog-toolbar{ display:flex; justify-content:flex-end; padding-bottom:20px; }
+  select.sort-select{
+    font-family:'Archivo',sans-serif; font-size:0.78rem; letter-spacing:0.03em;
+    padding:9px 14px; border:1px solid var(--hairline); background:var(--bg); color:var(--text);
+    cursor:pointer; appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0 L5 6 L10 0' fill='none' stroke='%239aa3a8' stroke-width='1.4'/></svg>");
+    background-repeat:no-repeat; background-position:right 14px center; padding-right:32px;
+  }
+  select.sort-select:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .no-results{
+    display:none; padding:60px 0; text-align:center; color:var(--text-dim);
+    font-size:1rem; grid-column:1/-1;
+  }
+  .no-results.is-visible{ display:block; }
+
+  @media(max-width:900px){
+    .shop-layout{ flex-direction:column; }
+    .filter-sidebar{ width:100%; }
+  }
+
+  /* ---------- catalog grid ---------- */
+  .catalog{
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px;
+    background:var(--hairline); border:1px solid var(--hairline);
+  }
+  @media(max-width:900px){ .catalog{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:620px){ .catalog{ grid-template-columns:minmax(0,1fr); } }
+  .piece{
+    background:var(--bg); padding:32px 28px; display:flex; flex-direction:column; min-width:0;
+    transition:opacity .2s ease;
+  }
+  .piece[hidden]{ display:none; }
+  .piece svg{ width:150px; height:150px; align-self:center; margin-bottom:20px; }
+  .piece-photo{
+    width:100%; aspect-ratio:3/4; object-fit:cover; background:#000;
+    margin-bottom:20px;
+  }
+  .piece .ref{ font-size:0.7rem; letter-spacing:0.09em; color:var(--text-dim); text-transform:uppercase; margin:0; }
+  .piece h3{ font-size:1.35rem; font-style:italic; font-weight:500; margin:6px 0 10px; }
+  .piece p.desc{ font-size:0.88rem; line-height:1.55; color:var(--text-dim); margin:0 0 16px; flex:1; }
+  .piece .specs{
+    border-top:1px solid var(--hairline); padding-top:12px; margin-bottom:16px;
+    display:flex; flex-direction:column; gap:5px; font-size:0.78rem;
+  }
+  .piece .specs div{ display:flex; justify-content:space-between; gap:12px; color:var(--text-dim); }
+  .piece .specs div b{ color:var(--text); font-weight:500; font-family:'IBM Plex Mono'; }
+  .piece-foot{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .piece .price{ font-family:'IBM Plex Mono'; font-size:0.98rem; margin:0; }
+  .piece-foot-actions{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .link-details{
+    font-family:'Archivo',sans-serif; font-size:0.78rem; color:var(--text-dim);
+    text-decoration:underline; background:none; border:0; cursor:pointer; padding:0;
+  }
+  .link-details:hover{ color:var(--accent-strong); }
+
+  /* ---------- footer (identical to homepage) ---------- */
+  footer{ border-top:1px solid var(--hairline); padding:56px 0 40px; }
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:0.78rem; color:var(--text-dim);
+  }
+</style>
+
+<script data-i18n>
+(function(){
+  var DICT = {"Sélection":"Selection","Maison":"The House","Authentification":"Authentication","Vendre":"Sell","Estimation gratuite":"Free valuation","Site de démonstration":"Demo site","Des pièces":"Authenticated","d'exception":"exceptional","authentifiées":"watches","Chaque montre est authentifiée par nos experts avant de rejoindre notre sélection, garantie deux ans incluse.":"Every watch is authenticated by our experts before joining our selection, with a two-year warranty included.","Voir la sélection":"View the selection","Vendre ma montre":"Sell my watch","1 200+":"1,200+","Montres vendues":"Watches sold","Délai d'expertise":"Appraisal time","24 mois":"24 months","Garantie incluse":"Warranty included","Contrôle d'authenticité":"Authenticity check","Spécialiste indépendant de la montre suisse d'occasion.":"Independent specialist in pre-owned Swiss watches.","Imperial achète, authentifie et revend des garde-temps de haute horlogerie. Faites défiler pour suivre notre histoire, minute par minute.":"Imperial buys, authenticates and resells fine watchmaking timepieces. Scroll to follow our story, minute by minute.","Fondation":"Founding","Ouverture du premier comptoir d'achat-revente, dédié aux garde-temps suisses d'exception.":"Opening of our first buy-and-sell counter, dedicated to exceptional Swiss timepieces.","Laboratoire d'authentification":"Authentication laboratory","Constitution d'une équipe d'horlogers experts, formés aux mouvements des plus grandes manufactures.":"A team of expert watchmakers is formed, trained on the movements of the greatest manufactures.","Garantie deux ans":"Two-year warranty","Chaque montre vendue est couverte par une garantie pièces et main-d'œuvre de 24 mois.":"Every watch sold is covered by a 24-month parts and labor warranty.","Estimation à distance":"Remote valuation","Lancement du service de reprise en ligne, avec réponse ferme sous 48 heures.":"Launch of the online trade-in service, with a firm answer within 48 hours.","1 200 montres":"1,200 watches","Le catalogue dépasse le millier de pièces authentifiées en stock permanent.":"The catalog now exceeds a thousand authenticated pieces in permanent stock.","La sélection du moment.":"The current selection.","Une centaine de références en stock à tout instant, chacune contrôlée et garantie par notre atelier.":"About a hundred references in stock at any time, each one inspected and guaranteed by our workshop.","Voir toute la sélection":"View the full selection","Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine), révisée par notre atelier.":"904L steel case, black ceramic bezel, complete (original box and papers), serviced by our workshop.","État":"Condition","Excellent":"Excellent","Boîte et papiers":"Box and papers","Complets":"Complete","Garantie":"Warranty","Détails":"Details","Demander une fiche détaillée":"Request a detailed sheet","Boîtier or rose 18 carats, cadran opalin, écrin et certificat d'origine.":"18-carat rose gold case, opaline dial, presentation box and original certificate.","Chronographe manuel, verre hésalite d'origine, révision effectuée en 2025.":"Manual chronograph, original Hesalite crystal, serviced in 2025.","Le contrôle en 12 points":"The 12-point inspection","Mouvement":"Movement","Démontage et contrôle sous loupe":"Disassembly and inspection under a loupe","Boîtier et glace":"Case and crystal","Vérification des poinçons":"Hallmark verification","Numéros de série":"Serial numbers","Confrontation aux registres du marché":"Cross-checked against market registers","Authenticité et cohérence des dates":"Authenticity and date consistency","Étanchéité":"Water resistance","Test pression à la profondeur d'origine":"Pressure test at the original depth rating","Révision":"Service","Nettoyage et lubrification si nécessaire":"Cleaning and lubrication where needed","Garantie remise":"Warranty on delivery","24 mois, pièces et main-d'œuvre":"24 months, parts and labor","Chaque montre qui entre dans notre atelier est démontée, examinée mouvement par mouvement, puis confrontée à nos bases de référence pour écarter toute pièce non conforme.":"Every watch entering our workshop is disassembled, examined movement by movement, then checked against our reference databases to rule out any non-conforming part.","Nos horlogers vérifient l'authenticité des":"Our watchmakers verify the authenticity of the","boîtiers":"cases",", des":", the","numéros de série":"serial numbers","et des":"and the","papiers":"papers",", avant de procéder à une révision complète si l'état de la montre le justifie.":", before carrying out a full service if the condition of the watch warrants it.","Une montre qui ne passe pas l'ensemble des douze contrôles n'entre jamais dans notre sélection. C'est notre seul critère : la conformité.":"A watch that fails any of the twelve checks never enters our selection. It is our only criterion: conformity.","Vendre une montre. Une estimation en 48 heures.":"Sell a watch. A valuation in 48 hours.","Nos experts évaluent votre montre gratuitement et vous proposent une offre ferme, sans engagement de votre part.":"Our experts value your watch free of charge and give you a firm offer, with no obligation on your part.","Demander une estimation":"Request a valuation","Achat et revente de montres de luxe certifiées, 9 rue de la Paix, 75002 Paris.":"Purchase and resale of certified luxury watches, 9 rue de la Paix, 75002 Paris.","Notre histoire":"Our story","Vendre une montre":"Sell a watch","Richard Mille RM010, boitier or rose, cadran squelette":"Richard Mille RM010, rose gold case, skeleton dial","Marques avec lesquelles Imperial travaille":"Brands Imperial works with","Cadran de montre suisse":"Swiss watch dial","Montre de plongée acier, lunette noire, cadran noir":"Steel dive watch, black bezel, black dial","Étapes de notre histoire":"Milestones of our story","2014 : Fondation":"2014: Founding","2017 : Laboratoire d'authentification":"2017: Authentication laboratory","2020 : Garantie deux ans":"2020: Two-year warranty","2023 : Estimation à distance":"2023: Remote valuation","2026 : 1 200 montres":"2026: 1,200 watches","La Sélection — Imperial":"The Selection — Imperial","La sélection complète.":"The complete selection.","Chaque montre est démontée, contrôlée en douze points et garantie deux ans avant de rejoindre notre catalogue. Le stock change chaque semaine.":"Every watch is disassembled, inspected across twelve points and guaranteed for two years before joining our catalog. Stock changes every week.","Filtrer":"Filter","Tout effacer":"Clear all","Marque":"Brand","Réinitialiser":"Reset","Prix":"Price","Le prix le plus élevé est 41 000 $":"The highest price is $41,000","Sélection éditoriale":"Editor's selection","Prix croissant":"Price, low to high","Prix décroissant":"Price, high to low","Année, plus récent":"Year, newest first","Année, plus ancien":"Year, oldest first","Aucune montre ne correspond à ces critères pour le moment.":"No watch matches these criteria at the moment.","Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine).":"904L steel case, black ceramic bezel, complete (original box and papers).","Demander une fiche":"Request a sheet","Très bon":"Very good","Boîte seule":"Box only","Boîtier acier et or gris, cadran soleillé bleu, bracelet Jubilé.":"Steel and white gold case, blue sunray dial, Jubilee bracelet.","Boîtier acier, cadran grande tapisserie bleu nuit, bracelet intégré.":"Steel case, midnight blue grande tapisserie dial, integrated bracelet.","Boîtier acier moyen modèle, lunette vissée, bracelet interchangeable QuickSwitch.":"Steel case, medium size, screw-down bezel, interchangeable QuickSwitch bracelet.","Boîtier acier 41mm, cadran argenté, index appliqués rhodiés.":"41mm steel case, silver dial, rhodium-plated applied indices.","Boîtier acier 39mm, cadran noir mat, bracelet acier à maillons.":"39mm steel case, matte black dial, steel link bracelet.","Boîtier acier 43mm, lunette réglette de calcul, bracelet cuir.":"43mm steel case, slide-rule bezel, leather strap.","Prix minimum":"Minimum price","Prix maximum":"Maximum price","Trier le catalogue":"Sort the catalog","Estimation gratuite — Imperial":"Free Valuation — Imperial","Une estimation ferme en 48 heures.":"A firm valuation in 48 hours.","Décrivez votre montre en quelques minutes. Nos horlogers l'évaluent sur pièces et vous répondent avec une offre chiffrée, valable dix jours, que vous restez libre de refuser.":"Describe your watch in a few minutes. Our watchmakers assess it on its merits and reply with a quoted offer, valid for ten days, which you are free to decline.","Gratuit, sans engagement":"Free, no obligation","Réponse sous 48 heures":"Reply within 48 hours","Offre ferme, pas une fourchette":"A firm offer, not a range","La montre":"The watch","Plus vous êtes précis, plus l'offre est juste. La référence figure sur le boîtier, entre les cornes ou sur les papiers.":"The more precise you are, the fairer the offer. The reference is on the case, between the lugs, or on the papers.","Choisir une marque":"Choose a brand","Autre marque":"Other brand","Indiquez la marque de la montre.":"Enter the watch's brand.","Modèle":"Model","Indiquez le modèle, par exemple « Datejust 41 ».":"Enter the model, for example “Datejust 41”.","Nom de la marque":"Brand name","Écrivez le nom de la marque.":"Write the brand name.","Référence":"Reference","(facultatif)":"(optional)","Année d'achat ou de production":"Year of purchase or production","Choisir une année":"Choose a year","Avant 1960":"Before 1960","Je ne sais pas":"I don't know","Choisissez une année, ou « Je ne sais pas ».":"Choose a year, or “I don't know”.","État et accompagnement":"Condition and extras","État général":"Overall condition","Bon":"Good","À réviser":"Needs servicing","Choisissez l'état qui correspond le mieux à votre montre.":"Choose the condition that best matches your watch.","Ce que vous avez conservé":"What you kept","(plusieurs choix possibles)":"(multiple choices allowed)","Boîte d'origine":"Original box","Papiers et certificat":"Papers and certificate","Facture d'achat":"Purchase invoice","Maillons supplémentaires":"Extra links","Photos":"Photos","Facultatif, mais elles accélèrent l'estimation : cadran, fond de boîte, bracelet, numéros de série. Six images au maximum.":"Optional, but they speed up the valuation: dial, caseback, bracelet, serial numbers. Six images maximum.","Ajouter des photos":"Add photos","Glissez-déposez ou touchez ici · JPG, PNG ou WebP":"Drag and drop or tap here · JPG, PNG or WebP","Vos coordonnées":"Your details","Nom complet":"Full name","Indiquez votre nom.":"Enter your name.","Téléphone":"Phone","Adresse e-mail":"Email address","Saisissez une adresse e-mail valide, par exemple camille@exemple.fr.":"Enter a valid email address, for example camille@example.com.","Précisions":"Details","J'accepte que mes informations soient utilisées par Imperial pour établir cette estimation et me répondre.":"I agree that Imperial may use my information to prepare this valuation and reply to me.","Cochez la case pour envoyer votre demande.":"Tick the box to send your request.","Demander mon estimation":"Request my valuation","Aucun paiement, aucune obligation de vendre.":"No payment, no obligation to sell.","Demande reçue":"Request received","Merci":"Thank you",", nous étudions votre montre.":", we're reviewing your watch.","Un horloger examine votre demande et vous écrit à":"A watchmaker is reviewing your request and will write to you at","avec une offre chiffrée sous 48 heures.":"with a quoted offer within 48 hours.","Site de démonstration : cette demande n'est pas transmise, elle reste dans votre navigateur.":"Demo site: this request is not sent, it stays in your browser.","Estimer une autre montre":"Value another watch","Comment ça se passe":"How it works","Vous décrivez la montre":"You describe the watch","Le formulaire prend cinq minutes, photos comprises.":"The form takes five minutes, photos included.","Estimation sous 48 heures":"Valuation within 48 hours","Un horloger évalue la pièce d'après le marché et son état.":"A watchmaker values the piece based on the market and its condition.","Offre ferme":"Firm offer","Un prix, pas une fourchette, valable dix jours.":"One price, not a range, valid for ten days.","Expertise et règlement":"Inspection and payment","Si vous acceptez, nous contrôlons la montre en boutique puis nous vous réglons par virement.":"If you accept, we inspect the watch in store, then pay you by bank transfer.","Pour une offre plus juste":"For a fairer offer","Photographiez le cadran à la lumière du jour.":"Photograph the dial in daylight.","Montrez le fond de boîte et le fermoir.":"Show the caseback and the clasp.","Rassemblez boîte, papiers et facture.":"Gather the box, papers and invoice.","Questions fréquentes.":"Frequently asked questions.","L'estimation coûte-t-elle quelque chose ?":"Does the valuation cost anything?","Non. L'estimation est gratuite et ne vous engage à rien. Vous décidez ensuite d'accepter ou non notre offre.":"No. The valuation is free and commits you to nothing. You then decide whether or not to accept our offer.","Quelles montres rachetez-vous ?":"Which watches do you buy?","Les montres suisses de haute horlogerie, en état de marche, des grandes maisons de notre sélection. Pour une pièce plus rare ou une marque absente de la liste, choisissez « Autre marque » et décrivez-la : nous vous répondrons au cas par cas.":"Swiss fine watchmaking timepieces in working order, from the major houses in our selection. For a rarer piece or a brand missing from the list, choose “Other brand” and describe it: we will reply case by case.","Que se passe-t-il si l'offre ne me convient pas ?":"What happens if the offer doesn't suit me?","Rien. Vous gardez votre montre, sans frais ni relance insistante. L'offre reste valable dix jours si vous changez d'avis.":"Nothing. You keep your watch, with no fees and no pushy follow-ups. The offer stays valid for ten days if you change your mind.","Dois-je envoyer ma montre avant d'avoir un prix ?":"Do I have to send my watch before getting a price?","Non. L'estimation se fait à distance, à partir de votre description et de vos photos. La montre n'est contrôlée en boutique qu'une fois l'offre acceptée.":"No. The valuation is done remotely, from your description and photos. The watch is only inspected in store once the offer is accepted.","La boîte et les papiers sont-ils indispensables ?":"Are the box and papers essential?","Non, mais une montre complète se revend mieux et l'offre en tient compte. Si vous n'avez plus les papiers, indiquez-le simplement : l'authentification en atelier porte sur la montre elle-même.":"No, but a complete watch resells better and the offer takes that into account. If you no longer have the papers, just say so: the workshop authentication concerns the watch itself.","Ex. : Panerai":"E.g. Panerai","camille@exemple.fr":"camille@example.com","Révision récente, rayures, modifications, raison de la vente…":"Recent service, scratches, modifications, reason for selling…","Non renseignée":"Not provided","Montre seule":"Watch only","Aucune":"None","Accompagnement":"Extras","Seules les images sont acceptées.":"Only images are accepted.","Six photos au maximum : retirez-en une pour en ajouter.":"Six photos maximum: remove one to add another.","Fiche montre — Imperial":"Watch details — Imperial","Fiche montre":"Watch details","Fiche introuvable":"Page not found","Cette montre n'est plus disponible ou le lien est incorrect.":"This watch is no longer available or the link is incorrect.","Glisser pour tourner":"Drag to rotate","Vue principale":"Main view","Vue 360°":"360° view","Vue 360° — bientôt disponible":"360° view — coming soon","Montre":"Watch","Appeler la boutique":"Call the store","Envoyer un message":"Send a message","Garantie Imperial":"Imperial warranty","24 mois pièces et main-d'œuvre sur l'ensemble de notre sélection, sans condition.":"24 months parts and labor across our entire selection, no conditions.","Contrôle en 12 points":"12-point inspection","Mouvement, boîtier et numéros de série vérifiés par nos horlogers avant remise.":"Movement, case and serial numbers verified by our watchmakers before delivery.","Écrin de remise":"Presentation box","Livrée dans un écrin Imperial avec certificat d'authenticité et carnet d'entretien.":"Delivered in an Imperial presentation box with a certificate of authenticity and a maintenance booklet.","État de la pièce":"Condition of the piece","Année":"Year","Fiche technique":"Technical specifications","Boîtier":"Case","Lunette":"Bezel","Réserve de marche":"Power reserve","Bracelet":"Bracelet","Cadran":"Dial","Certification":"Certification","Ce qui caractérise cette montre.":"What defines this watch.","Vous pourriez aussi aimer.":"You might also like.","Oyster, 41 mm, acier Oystersteel":"Oyster, 41 mm, Oystersteel","Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine). Contrôlée et révisée par notre atelier avant remise.":"904L steel case, black ceramic bezel, complete (original box and papers). Inspected and serviced by our workshop before delivery.","Oyster, 41 mm, acier":"Oyster, 41 mm, steel","Céramique noire, graduation 60 min":"Black ceramic, 60-minute graduation","Automatique, calibre 3235":"Automatic, caliber 3235","Acier à maillons, fermoir extensible":"Steel link bracelet, extendable clasp","Noir, index luminescents":"Black, luminescent indices","Chronomètre (COSC)":"Chronometer (COSC)","Lunette tournante unidirectionnelle":"Unidirectional rotating bezel","Graduée sur 60 minutes, elle permet de suivre un temps de plongée ou toute autre durée d'un coup d'œil, et ne peut tourner que dans un sens pour éviter de sous-estimer le temps écoulé sous l'eau.":"Graduated over 60 minutes, it lets you track a dive time or any other duration at a glance, and can only turn one way so that elapsed time underwater is never underestimated.","Cadran haute lisibilité":"High-legibility dial","Index et aiguilles traités à la matière luminescente pour rester lisibles dans l'obscurité. Les formes simples évitent toute confusion en un coup d'œil.":"Indices and hands treated with luminescent material to stay legible in the dark. Simple shapes prevent any confusion at a glance.","Boîtier acier renforcé":"Reinforced steel case","Un acier à haute résistance à la corrosion, choisi pour sa robustesse dans les environnements marins et sa tenue dans le temps.":"A steel with high corrosion resistance, chosen for its robustness in marine environments and its durability over time.","Oyster, 41 mm, acier et or gris":"Oyster, 41 mm, steel and white gold","Cannelée, or gris":"Fluted, white gold","Jubilé, acier et or gris":"Jubilee, steel and white gold","Soleillé bleu":"Blue sunray","Cadran soleillé":"Sunray dial","Un jeu de finitions concentriques qui capte la lumière différemment selon l'angle de vue, donnant au bleu une profondeur qui change au fil de la journée.":"A play of concentric finishes that catches the light differently depending on the viewing angle, giving the blue a depth that shifts throughout the day.","Bracelet cinq-pièces":"Five-piece bracelet","Une alternance de maillons larges et étroits qui confère au bracelet une souplesse au poignet supérieure aux modèles à trois maillons.":"An alternation of wide and narrow links that gives the bracelet more flexibility on the wrist than three-link models.","Fenêtre dateur agrandie":"Magnified date window","Positionnée à 3 heures, elle bénéficie d'une loupe qui grossit le chiffre pour une lecture rapide sans effort.":"Positioned at 3 o'clock, it has a magnifying lens that enlarges the number for quick, effortless reading.","Boîtier or rose 18 carats":"18-carat rose gold case","39 mm, or rose 18 carats":"39 mm, 18-carat rose gold","Lisse, or rose":"Smooth, rose gold","Automatique, calibre 324 S C":"Automatic, caliber 324 S C","Cuir alligator, boucle ardillon or rose":"Alligator leather, rose gold pin buckle","Opalin":"Opaline","Poinçon manufacture":"Manufacture hallmark","Cadran opalin":"Opaline dial","Un traitement du cadran qui diffuse la lumière de façon douce et uniforme, signature des montres habillées classiques.":"A dial treatment that diffuses light softly and evenly, a signature of classic dress watches.","Boîtier fin et pur":"Slim, pure case","Des lignes épurées, sans fioriture, pensées pour se glisser sous une manchette aussi bien qu'à porter à vue.":"Clean, unadorned lines designed to slip under a cuff as well as to be worn in plain sight.","Mouvement à guichet":"Display-back movement","Un mouvement à remontage automatique visible par le fond saphir, orné de finitions traditionnelles d'horlogerie.":"An automatic-winding movement visible through the sapphire caseback, decorated with traditional watchmaking finishes.","Chronographe manuel, verre hésalite":"Manual chronograph, Hesalite crystal","42 mm, acier":"42 mm, steel","Tachymètre, aluminium noir":"Tachymeter, black aluminium","Manuel, calibre 3861":"Manual, caliber 3861","Acier à maillons":"Steel links","Noir, verre hésalite":"Black, Hesalite crystal","Chronographe à remontage manuel":"Manually wound chronograph","Le geste du remontage quotidien fait partie de l'expérience de la montre, dans la tradition des premiers chronographes de poignet.":"The daily winding gesture is part of the watch experience, in the tradition of the first wrist chronographs.","Lunette tachymétrique":"Tachymeter bezel","Graduée pour calculer une vitesse moyenne sur une distance connue, un outil hérité de son usage historique.":"Graduated to calculate an average speed over a known distance, a tool inherited from its historical use.","Verre hésalite":"Hesalite crystal","Un verre acrylique plus résistant aux chocs que le saphir, qui peut être repoli en cas de rayure superficielle.":"An acrylic crystal more shock-resistant than sapphire, which can be repolished in case of a surface scratch.","Boîtier acier, bracelet intégré":"Steel case, integrated bracelet","39 mm, acier, lunette octogonale à 8 vis":"39 mm, steel, octagonal bezel with 8 screws","Octogonale, acier":"Octagonal, steel","Automatique, calibre 4302":"Automatic, caliber 4302","Intégré, acier, motif tapisserie":"Integrated, steel, tapisserie pattern","Grande tapisserie bleu nuit":"Midnight blue grande tapisserie","Bracelet intégré":"Integrated bracelet","Le bracelet prolonge la ligne du boîtier sans rupture visuelle, un parti pris qui a défini le genre de la montre de sport en acier de luxe.":"The bracelet extends the line of the case without visual break, a design choice that defined the luxury steel sports watch genre.","Cadran guilloché":"Guilloché dial","Un motif en relief obtenu par un procédé mécanique traditionnel, qui joue avec la lumière selon l'angle d'observation.":"A raised pattern produced by a traditional mechanical process, which plays with light depending on the viewing angle.","Lunette à 8 vis apparentes":"Bezel with 8 visible screws","Les huit vis hexagonales visibles sur la lunette sont devenues une signature esthétique autant que fonctionnelle.":"The eight hexagonal screws visible on the bezel have become as much an aesthetic signature as a functional one.","Boîtier acier, moyen modèle":"Steel case, medium size","Moyen modèle, acier":"Medium size, steel","Vissée, 8 vis apparentes":"Screw-down, 8 visible screws","Automatique, calibre 1847 MC":"Automatic, caliber 1847 MC","Interchangeable sans outil":"Interchangeable without tools","Argenté, chemin de fer":"Silver, railway track","Boîtier carré aux angles arrondis":"Square case with rounded corners","Une silhouette dessinée à l'origine pour un usage aviateur, restée pratiquement inchangée depuis sa création.":"A silhouette originally designed for aviator use, remaining practically unchanged since its creation.","Bracelet à changement rapide":"Quick-change bracelet","Un système de goupilles permet de changer le bracelet en quelques secondes, sans outil ni passage en atelier.":"A pin system lets you change the bracelet in seconds, with no tools and no visit to the workshop.","Chemin de fer romain":"Roman railway track","Les chiffres romains et la piste minutée en retrait rappellent l'origine cartographique du design de ce modèle.":"The Roman numerals and the recessed minute track recall the cartographic origin of this model's design.","Boîtier acier, 41 mm":"Steel case, 41 mm","41 mm, acier":"41 mm, steel","Lisse, acier":"Smooth, steel","Automatique, calibre 69355":"Automatic, caliber 69355","Cuir, boucle ardillon":"Leather, pin buckle","Argenté, index appliqués":"Silver, applied indices","Boîtier grand format":"Large-format case","Une carrure généreuse héritée des montres de poche portugaises qui ont inspiré la collection à sa création.":"A generous case inherited from the Portuguese pocket watches that inspired the collection at its creation.","Chronographe à rattrapante de lecture":"Easy-read chronograph","Deux compteurs distincts, l'un pour les minutes et l'autre pour les petites secondes, disposés pour une lecture immédiate.":"Two distinct counters, one for minutes and one for small seconds, arranged for immediate reading.","Cadran chemin de fer":"Railway-track dial","La piste minutée en bordure du cadran reprend un dessin classique de l'horlogerie de poche.":"The minute track around the edge of the dial echoes a classic pocket-watch design.","Boîtier acier, 39 mm":"Steel case, 39 mm","39 mm, acier":"39 mm, steel","Unidirectionnelle, aluminium noir":"Unidirectional, black aluminium","Automatique, calibre MT5402":"Automatic, caliber MT5402","Noir mat":"Matte black","Diamètre resserré":"Tighter diameter","Un boîtier de 39 mm qui reprend les proportions des montres de plongée des années 1950, plus proche du poignet que les modèles contemporains.":"A 39 mm case that takes up the proportions of 1950s dive watches, sitting closer to the wrist than contemporary models.","Lunette bombée":"Domed bezel","Le profil légèrement bombé de la lunette et du verre évoque directement les modèles vintage dont s'inspire cette pièce.":"The slightly domed profile of the bezel and crystal directly evokes the vintage models this piece draws from.","Cadran mat sans reflet":"Matte, glare-free dial","Un traitement mat qui limite les reflets et privilégie la lisibilité en toute condition de lumière.":"A matte treatment that limits reflections and favors legibility in any lighting condition.","Boîtier acier, 43 mm":"Steel case, 43 mm","43 mm, acier":"43 mm, steel","Réglette de calcul, acier":"Slide rule, steel","Automatique, calibre B01":"Automatic, caliber B01","Cuir":"Leather","Noir":"Black","Lunette réglette de calcul":"Slide-rule bezel","Une échelle logarithmique bi-directionnelle permettant des calculs de vitesse, consommation ou conversion, héritée de l'aviation civile.":"A bidirectional logarithmic scale for speed, consumption or conversion calculations, inherited from civil aviation.","Trois compteurs chronographe":"Three chronograph counters","Une disposition classique à 3, 6 et 9 heures qui distingue les secondes, minutes et heures chronométrées.":"A classic layout at 3, 6 and 9 o'clock that distinguishes timed seconds, minutes and hours.","Boîtier généreux":"Generous case","Un diamètre de 43 mm pensé pour une lisibilité maximale des multiples graduations du cadran.":"A 43 mm diameter designed for maximum legibility of the dial's many graduations."};
+  var KEY = 'imp-lang', ATTRS = ['placeholder','aria-label','alt','title'];
+  var lang = 'fr', pendingScroll = '';
+  function norm(s){ return s.replace(/ /g,' ').replace(/’/g,"'").replace(/\s+/g,' ').trim(); }
+
+  /* language comes from a "~en" / "~fr" hash suffix (set by our own cross-page links), else from the last choice */
+  var stored = null;
+  try{ stored = localStorage.getItem(KEY); }catch(e){}
+  var m = /~(en|fr)$/.exec(location.hash);
+  if(m){
+    lang = m[1];
+    var clean = location.hash.slice(0, m.index);
+    pendingScroll = clean.slice(1);
+    try{ history.replaceState(null, '', location.pathname + location.search + (clean.length > 1 ? clean : '')); }catch(e){}
+    try{ localStorage.setItem(KEY, lang); }catch(e){}
+  } else if(stored === 'en' || stored === 'fr'){ lang = stored; }
+
+  window.addEventListener('hashchange', function(){
+    var mm = /~(en|fr)$/.exec(location.hash); if(!mm) return;
+    var c = location.hash.slice(0, mm.index);
+    try{ history.replaceState(null, '', location.pathname + location.search + (c.length > 1 ? c : '')); }catch(e){}
+    if(mm[1] !== lang && window.__setImpLang) window.__setImpLang(mm[1]);
+  });
+
+  function price(k){ var r = /^(\d{1,3}(?: \d{3})*) \$$/.exec(k); return r ? '$' + r[1].replace(/ /g, ',') : undefined; }
+  function rules(k){
+    var r, p = price(k); if(p !== undefined) return p;
+    if((r = /^Réf\. (.*)$/.exec(k))) return 'Ref. ' + r[1].replace('Pièce phare', 'Flagship piece');
+    if((r = /^Référence (.*)$/.exec(k))) return 'Reference ' + r[1];
+    if((r = /^(\d+) montres?$/.exec(k))) return r[1] + (r[1] === '1' ? ' watch' : ' watches');
+    if((r = /^(\d+) sélectionnées?$/.exec(k))) return r[1] + ' selected';
+    if((r = /^(\d+) jointes?$/.exec(k))) return r[1] + ' attached';
+    if((r = /^Retirer la photo (\d+)$/.exec(k))) return 'Remove photo ' + r[1];
+    return undefined;
+  }
+  function tr(text){
+    var k = norm(text); if(!k) return text;
+    var out = DICT[k]; if(out === undefined) out = rules(k);
+    if(out === undefined) return text;
+    return /^\s*/.exec(text)[0] + out + /\s*$/.exec(text)[0];
+  }
+
+  var orig = new WeakMap(), setv = new WeakMap();
+  function skip(n){
+    var p = n.parentElement; if(!p) return true;
+    if(/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT)$/.test(p.tagName)) return true;
+    return !!(p.closest && p.closest('[data-no-i18n]'));
+  }
+  function doText(n){
+    if(skip(n)) return;
+    var cur = n.nodeValue;
+    if(setv.has(n) && cur === setv.get(n)){
+      if(lang === 'fr'){ n.nodeValue = orig.get(n); setv.delete(n); orig.delete(n); }
+      return;
+    }
+    if(lang === 'en'){
+      var t = tr(cur);
+      if(t !== cur){ orig.set(n, cur); setv.set(n, t); n.nodeValue = t; }
+    }
+  }
+  function doAttrs(el){
+    if(el.closest && el.closest('[data-no-i18n]')) return;
+    for(var i = 0; i < ATTRS.length; i++){
+      var a = ATTRS[i], v = el.getAttribute(a); if(v === null) continue;
+      var st = el.__i18n || (el.__i18n = {}), rec = st[a];
+      if(rec && v === rec.set){ if(lang === 'fr'){ el.setAttribute(a, rec.orig); delete st[a]; } continue; }
+      if(lang === 'en'){ var t = tr(v); if(t !== v){ st[a] = {orig:v, set:t}; el.setAttribute(a, t); } }
+    }
+  }
+  function walk(root){
+    if(root.nodeType === 3){ doText(root); return; }
+    if(root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+    if(root.nodeType === 1) doAttrs(root);
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n;
+    while((n = w.nextNode())) doText(n);
+    if(root.querySelectorAll){
+      var els = root.querySelectorAll('[placeholder],[aria-label],[alt],[title]');
+      for(var i = 0; i < els.length; i++) doAttrs(els[i]);
+    }
+  }
+
+  var H0 = /^https:\/\/claude\.ai\/(code\/)?artifact\//;
+  function syncLinks(){
+    var as = document.querySelectorAll('a[href]');
+    for(var i = 0; i < as.length; i++){
+      var a = as[i], h0 = a.getAttribute('data-h0');
+      if(h0 === null){
+        var h = a.getAttribute('href');
+        if(!H0.test(h)){ a.setAttribute('data-h0', '-'); continue; }
+        a.setAttribute('data-h0', h); h0 = h;
+      }
+      if(h0 === '-') continue;
+      var at = h0.indexOf('#'), base = at > -1 ? h0.slice(0, at) : h0, frag = at > -1 ? h0.slice(at) : '#';
+      var want = lang === 'en' ? base + frag + '~en' : h0;
+      if(a.getAttribute('href') !== want) a.setAttribute('href', want);
+    }
+  }
+
+  var css = document.createElement('style');
+  css.textContent =
+    '.nav-right{display:flex;align-items:center;gap:16px}' +
+    '.lang{display:flex;border:1px solid var(--hairline,#2a2f33)}' +
+    '.lang button{background:none;border:0;margin:0;color:var(--text-dim,#9aa3a8);font:600 0.72rem/1 "Archivo",sans-serif;letter-spacing:0.1em;padding:10px 11px;cursor:pointer;transition:background .15s ease,color .15s ease}' +
+    '.lang button:hover{color:var(--text,#eaedee)}' +
+    '.lang button[aria-pressed="true"]{background:var(--text,#eaedee);color:var(--bg,#0c0e10)}' +
+    '.lang button:focus-visible{outline:2px solid var(--accent,#4f9fd6);outline-offset:-2px}' +
+    '@media(max-width:1000px){.nav-right{gap:12px}}' +
+    '@media(max-width:480px){.nav-right{gap:8px}.lang button{padding:9px 8px;font-size:0.66rem;letter-spacing:0.06em}}';
+  document.head.appendChild(css);
+
+  var buttons = [];
+  function build(){
+    var inner = document.querySelector('.nav-inner'); if(!inner) return;
+    var right = document.createElement('div'); right.className = 'nav-right';
+    var box = document.createElement('div'); box.className = 'lang'; box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'Langue / Language'); box.setAttribute('data-no-i18n', '');
+    ['fr','en'].forEach(function(l){
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = l.toUpperCase(); b.setAttribute('data-l', l);
+      b.setAttribute('lang', l); b.setAttribute('aria-label', l === 'fr' ? 'Français' : 'English');
+      b.addEventListener('click', function(){ setLang(l); });
+      box.appendChild(b); buttons.push(b);
+    });
+    right.appendChild(box);
+    var cta = null, kids = inner.children;
+    for(var i = 0; i < kids.length; i++){ if(kids[i].classList.contains('btn')) cta = kids[i]; }
+    if(cta) right.appendChild(cta);
+    inner.appendChild(right);
+  }
+  function paint(){
+    document.documentElement.setAttribute('lang', lang);
+    buttons.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-l') === lang ? 'true' : 'false'); });
+  }
+  function setLang(l){
+    lang = l;
+    try{ localStorage.setItem(KEY, l); }catch(e){}
+    paint(); walk(document.documentElement); syncLinks();
+  }
+
+  window.__setImpLang = setLang;
+  function init(){
+    build(); paint();
+    walk(document.documentElement); syncLinks();
+    var pend = false;
+    new MutationObserver(function(muts){
+      for(var i = 0; i < muts.length; i++){
+        var mu = muts[i];
+        if(mu.type === 'characterData') doText(mu.target);
+        else if(mu.type === 'attributes') doAttrs(mu.target);
+        else { for(var j = 0; j < mu.addedNodes.length; j++) walk(mu.addedNodes[j]); }
+      }
+      if(!pend){ pend = true; setTimeout(function(){ pend = false; syncLinks(); }, 60); }
+    }).observe(document.documentElement, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:ATTRS});
+    if(pendingScroll){
+      window.addEventListener('load', function(){
+        setTimeout(function(){ var t = document.getElementById(decodeURIComponent(pendingScroll)); if(t) t.scrollIntoView(); }, 350);
+      });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="https://claude.ai/code/artifact/ef9ea711-7913-4c34-b1c4-2f2da463a5ab" class="wordmark">IMPERIAL <small>LUXURY&nbsp;WATCH</small></a>
+    <div class="nav-links">
+      <a href="https://claude.ai/artifact/Hke1SF1W3Ro4PvJVZgozE7" aria-current="page">Sélection</a>
+      <a href="https://claude.ai/code/artifact/ef9ea711-7913-4c34-b1c4-2f2da463a5ab#maison">Maison</a>
+      <a href="https://claude.ai/code/artifact/ef9ea711-7913-4c34-b1c4-2f2da463a5ab#authentification">Authentification</a>
+      <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72">Vendre</a>
+    </div>
+    <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Estimation gratuite</a>
+  </div>
+</nav>
+
+<header class="page-head wrap">
+  <h1>La sélection complète.</h1>
+  <p>Chaque montre est démontée, contrôlée en douze points et garantie deux ans avant de rejoindre notre catalogue. Le stock change chaque semaine.</p>
+</header>
+
+<div class="wrap">
+  <div class="shop-layout">
+    <aside class="filter-sidebar">
+      <div class="filter-sidebar-head">
+        <h2>Filtrer</h2>
+        <button type="button" id="clear-all">Tout effacer</button>
+      </div>
+      <p class="result-count" id="result-count">9 montres</p>
+
+      <details class="filter-section" open>
+        <summary>Marque <span class="chev"></span></summary>
+        <div class="filter-section-body">
+          <div class="filter-section-meta">
+            <span id="brand-count-label">0 sélectionnée</span>
+            <button type="button" class="reset-link" data-reset="brand">Réinitialiser</button>
+          </div>
+          <label class="check-row"><input type="checkbox" data-brand="rolex"><span>Rolex</span><i>(2)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="patek"><span>Patek Philippe</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="ap"><span>Audemars Piguet</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="omega"><span>Omega</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="cartier"><span>Cartier</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="iwc"><span>IWC</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="tudor"><span>Tudor</span><i>(1)</i></label>
+          <label class="check-row"><input type="checkbox" data-brand="breitling"><span>Breitling</span><i>(1)</i></label>
+        </div>
+      </details>
+
+      <details class="filter-section" open>
+        <summary>Prix <span class="chev"></span></summary>
+        <div class="filter-section-body">
+          <p class="price-hint">
+            <span>Le prix le plus élevé est 41&nbsp;000&nbsp;$</span>
+            <button type="button" class="reset-link" data-reset="price">Réinitialiser</button>
+          </p>
+          <div class="price-slider">
+            <div class="price-track"></div>
+            <div class="price-track-fill" id="price-track-fill"></div>
+            <input type="range" id="price-min" min="0" max="41000" step="100" value="0" aria-label="Prix minimum">
+            <input type="range" id="price-max" min="0" max="41000" step="100" value="41000" aria-label="Prix maximum">
+          </div>
+          <div class="price-inputs">
+            <label>$<input type="number" id="price-min-input" min="0" max="41000" value="0"></label>
+            <span>–</span>
+            <label>$<input type="number" id="price-max-input" min="0" max="41000" value="41000"></label>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <div class="catalog-area">
+      <div class="catalog-toolbar">
+        <select class="sort-select" id="sort-select" aria-label="Trier le catalogue">
+          <option value="default">Sélection éditoriale</option>
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
+          <option value="year-desc">Année, plus récent</option>
+          <option value="year-asc">Année, plus ancien</option>
+        </select>
+      </div>
+
+  <div class="catalog" id="catalog">
+    <p class="no-results" id="no-results">Aucune montre ne correspond à ces critères pour le moment.</p>
+
+    <article class="piece" data-brand="rolex" data-price="12900" data-year="2022">
+      <img class="piece-photo" src="watch-sub.png" alt="Montre de plongée acier, lunette noire, cadran noir">
+      <p class="ref">Réf. 126610LN · 2022</p>
+      <h3>Rolex Submariner Date</h3>
+      <p class="desc">Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine).</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">12&nbsp;900&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#submariner-date">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="patek" data-price="35100" data-year="2019">
+      <div id="w-cala"></div>
+      <p class="ref">Réf. 5227R · 2019</p>
+      <h3>Patek Philippe Calatrava</h3>
+      <p class="desc">Boîtier or rose 18 carats, cadran opalin, écrin et certificat d'origine.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">35&nbsp;100&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#calatrava">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="omega" data-price="6900" data-year="2021">
+      <div id="w-speed"></div>
+      <p class="ref">Réf. 310.30.42.50.01.001 · 2021</p>
+      <h3>Omega Speedmaster Professional</h3>
+      <p class="desc">Chronographe manuel, verre hésalite d'origine, révision effectuée en 2025.</p>
+      <div class="specs">
+        <div><span>État</span><b>Très bon</b></div>
+        <div><span>Boîte et papiers</span><b>Boîte seule</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">6&nbsp;900&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#speedmaster-professional">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="rolex" data-price="9900" data-year="2020">
+      <div id="w-dj"></div>
+      <p class="ref">Réf. 126334 · 2020</p>
+      <h3>Rolex Datejust 41</h3>
+      <p class="desc">Boîtier acier et or gris, cadran soleillé bleu, bracelet Jubilé.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">9&nbsp;900&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#datejust-41">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="ap" data-price="41000" data-year="2020">
+      <div id="w-ap"></div>
+      <p class="ref">Réf. 15500ST · 2020</p>
+      <h3>Audemars Piguet Royal Oak</h3>
+      <p class="desc">Boîtier acier, cadran grande tapisserie bleu nuit, bracelet intégré.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">41&nbsp;000&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#royal-oak">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="cartier" data-price="8400" data-year="2021">
+      <div id="w-santos"></div>
+      <p class="ref">Réf. WSSA0018 · 2021</p>
+      <h3>Cartier Santos de Cartier</h3>
+      <p class="desc">Boîtier acier moyen modèle, lunette vissée, bracelet interchangeable QuickSwitch.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">8&nbsp;400&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#santos-de-cartier">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="iwc" data-price="9100" data-year="2019">
+      <div id="w-iwc"></div>
+      <p class="ref">Réf. IW371617 · 2019</p>
+      <h3>IWC Portugieser Chronograph</h3>
+      <p class="desc">Boîtier acier 41mm, cadran argenté, index appliqués rhodiés.</p>
+      <div class="specs">
+        <div><span>État</span><b>Très bon</b></div>
+        <div><span>Boîte et papiers</span><b>Boîte seule</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">9&nbsp;100&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#portugieser-chronograph">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="tudor" data-price="3900" data-year="2022">
+      <div id="w-tudor"></div>
+      <p class="ref">Réf. 79030N · 2022</p>
+      <h3>Tudor Black Bay 58</h3>
+      <p class="desc">Boîtier acier 39mm, cadran noir mat, bracelet acier à maillons.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">3&nbsp;900&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#black-bay-58">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="piece" data-brand="breitling" data-price="7500" data-year="2021">
+      <div id="w-breit"></div>
+      <p class="ref">Réf. AB0121211B1P1 · 2021</p>
+      <h3>Breitling Navitimer B01</h3>
+      <p class="desc">Boîtier acier 43mm, lunette réglette de calcul, bracelet cuir.</p>
+      <div class="specs">
+        <div><span>État</span><b>Excellent</b></div>
+        <div><span>Boîte et papiers</span><b>Complets</b></div>
+      </div>
+      <div class="piece-foot">
+        <p class="price">7&nbsp;500&nbsp;$</p>
+        <div class="piece-foot-actions">
+          <a class="btn" href="https://claude.ai/artifact/CB1zFyck56bCG4RGkkgYQ5#navitimer-b01">Détails</a>
+          <a href="https://claude.ai/artifact/CUuvhUYedpLE1fbzZUFL72" class="btn">Demander une fiche</a>
+        </div>
+      </div>
+    </article>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Imperial Luxury Watch, 9 rue de la Paix, 75002 Paris</span>
+    <span>Site de démonstration</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const SVGNS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs){
+    const n = document.createElementNS(SVGNS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function buildWatch(opts){
+    const size = opts.size || 220;
+    const cx = size/2, cy = size/2;
+    const rCase = size/2 - 3;
+    const rDial = rCase - 12;
+    const svg = el('svg', {viewBox:`0 0 ${size} ${size}`, role:'img', 'aria-label': opts.label || 'Montre'});
+    svg.appendChild(el('circle', {cx, cy, r:rCase, fill:'none', stroke:'var(--accent)', 'stroke-width':3}));
+    svg.appendChild(el('circle', {cx, cy, r:rCase-6, fill:'none', stroke:opts.tick, 'stroke-width':1}));
+    svg.appendChild(el('circle', {cx, cy, r:rDial, fill:opts.dial}));
+    for(let i=0;i<60;i++){
+      const isHour = i % 5 === 0;
+      const a = (i/60) * Math.PI*2;
+      const rOuter = rDial - 6;
+      const rInner = rDial - (isHour ? 14 : 8);
+      const x1 = cx + rOuter*Math.sin(a), y1 = cy - rOuter*Math.cos(a);
+      const x2 = cx + rInner*Math.sin(a), y2 = cy - rInner*Math.cos(a);
+      svg.appendChild(el('line', {x1,y1,x2,y2, stroke:opts.tick, 'stroke-width': isHour?1.4:0.6, 'stroke-linecap':'round'}));
+    }
+    const hourHand = el('line', {x1:cx, y1:cy, x2:cx, y2:cy - rDial*0.45, stroke:opts.hand, 'stroke-width':2.6, 'stroke-linecap':'round'});
+    const minHand = el('line', {x1:cx, y1:cy, x2:cx, y2:cy - rDial*0.68, stroke:opts.hand, 'stroke-width':2, 'stroke-linecap':'round'});
+    hourHand.setAttribute('transform', `rotate(300 ${cx} ${cy})`);
+    minHand.setAttribute('transform', `rotate(60 ${cx} ${cy})`);
+    const pivot = el('circle', {cx, cy, r:2.6, fill:opts.hand});
+    svg.appendChild(hourHand); svg.appendChild(minHand); svg.appendChild(pivot);
+    return svg;
+  }
+  function mount(id, opts){
+    const host = document.getElementById(id);
+    if(host) host.appendChild(buildWatch(opts));
+  }
+  mount('w-cala',   {dial:'#f4f6f7', tick:'#7c868c', hand:'#1c2226', label:'Patek Philippe Calatrava'});
+  mount('w-speed',  {dial:'#111315', tick:'#8f9499', hand:'#f4f7f8', label:'Omega Speedmaster Professional'});
+  mount('w-dj',     {dial:'#22406b', tick:'#dfe6ea', hand:'#f4f7f8', label:'Rolex Datejust 41'});
+  mount('w-ap',     {dial:'#182642', tick:'#c9d3de', hand:'#f4f7f8', label:'Audemars Piguet Royal Oak'});
+  mount('w-santos', {dial:'#f4f6f7', tick:'#7c868c', hand:'#1c2226', label:'Cartier Santos de Cartier'});
+  mount('w-iwc',    {dial:'#c8cdd1', tick:'#3a3f43', hand:'#1c2226', label:'IWC Portugieser Chronograph'});
+  mount('w-tudor',  {dial:'#111315', tick:'#dfe6ea', hand:'#f4f7f8', label:'Tudor Black Bay 58'});
+  mount('w-breit',  {dial:'#111315', tick:'#8f9499', hand:'#f4f7f8', label:'Breitling Navitimer B01'});
+})();
+
+/* ---- filter by brand (checkboxes) + price range, sort, empty state ---- */
+(function(){
+  const PRICE_FLOOR = 0, PRICE_CEIL = 41000;
+
+  const catalog = document.getElementById('catalog');
+  const noResults = document.getElementById('no-results');
+  const pieces = Array.from(document.querySelectorAll('#catalog .piece'));
+  const brandChecks = Array.from(document.querySelectorAll('.check-row input[data-brand]'));
+  const sortSelect = document.getElementById('sort-select');
+  const resultCount = document.getElementById('result-count');
+  const brandCountLabel = document.getElementById('brand-count-label');
+  const priceMinRange = document.getElementById('price-min');
+  const priceMaxRange = document.getElementById('price-max');
+  const priceMinInput = document.getElementById('price-min-input');
+  const priceMaxInput = document.getElementById('price-max-input');
+  const priceFill = document.getElementById('price-track-fill');
+  const clearAllBtn = document.getElementById('clear-all');
+
+  function selectedBrands(){
+    return brandChecks.filter(function(c){ return c.checked; }).map(function(c){ return c.dataset.brand; });
+  }
+
+  function syncPriceUI(){
+    let min = Number(priceMinRange.value), max = Number(priceMaxRange.value);
+    if(min > max){ const t = min; min = max; max = t; }
+    priceMinInput.value = min;
+    priceMaxInput.value = max;
+    const leftPct = ((min - PRICE_FLOOR) / (PRICE_CEIL - PRICE_FLOOR)) * 100;
+    const rightPct = ((max - PRICE_FLOOR) / (PRICE_CEIL - PRICE_FLOOR)) * 100;
+    priceFill.style.left = leftPct + '%';
+    priceFill.style.right = (100 - rightPct) + '%';
+  }
+
+  function apply(){
+    const brands = selectedBrands();
+    const min = Number(priceMinInput.value);
+    const max = Number(priceMaxInput.value);
+    let visible = 0;
+
+    pieces.forEach(function(p){
+      const brandOk = brands.length === 0 || brands.indexOf(p.dataset.brand) !== -1;
+      const price = Number(p.dataset.price);
+      const priceOk = price >= min && price <= max;
+      const show = brandOk && priceOk;
+      p.hidden = !show;
+      if(show) visible++;
+    });
+
+    noResults.classList.toggle('is-visible', visible === 0);
+    resultCount.textContent = visible + (visible > 1 ? ' montres' : ' montre');
+    brandCountLabel.textContent = brands.length + (brands.length > 1 ? ' sélectionnées' : ' sélectionnée');
+
+    const sortMode = sortSelect.value;
+    if(sortMode !== 'default'){
+      const sorted = pieces.slice().sort(function(a, b){
+        if(sortMode === 'price-asc') return Number(a.dataset.price) - Number(b.dataset.price);
+        if(sortMode === 'price-desc') return Number(b.dataset.price) - Number(a.dataset.price);
+        if(sortMode === 'year-desc') return Number(b.dataset.year) - Number(a.dataset.year);
+        if(sortMode === 'year-asc') return Number(a.dataset.year) - Number(b.dataset.year);
+        return 0;
+      });
+      sorted.forEach(function(p){ catalog.appendChild(p); });
+      catalog.appendChild(noResults);
+    }
+  }
+
+  brandChecks.forEach(function(c){ c.addEventListener('change', apply); });
+  sortSelect.addEventListener('change', apply);
+
+  [priceMinRange, priceMaxRange].forEach(function(r){
+    r.addEventListener('input', function(){ syncPriceUI(); apply(); });
+  });
+
+  [priceMinInput, priceMaxInput].forEach(function(inp){
+    inp.addEventListener('change', function(){
+      const v = Math.min(Math.max(Number(inp.value) || 0, PRICE_FLOOR), PRICE_CEIL);
+      inp.value = v;
+      if(inp === priceMinInput){ priceMinRange.value = v; } else { priceMaxRange.value = v; }
+      syncPriceUI(); apply();
+    });
+  });
+
+  document.querySelectorAll('.reset-link').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const target = btn.dataset.reset;
+      if(target === 'brand'){ brandChecks.forEach(function(c){ c.checked = false; }); }
+      if(target === 'price'){ priceMinRange.value = PRICE_FLOOR; priceMaxRange.value = PRICE_CEIL; syncPriceUI(); }
+      apply();
+    });
+  });
+
+  clearAllBtn.addEventListener('click', function(){
+    brandChecks.forEach(function(c){ c.checked = false; });
+    priceMinRange.value = PRICE_FLOOR; priceMaxRange.value = PRICE_CEIL;
+    sortSelect.value = 'default';
+    syncPriceUI(); apply();
+  });
+
+  syncPriceUI();
+  apply();
+})();
+</script>
