@@ -697,6 +697,29 @@
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ layout(); readScroll(); cur = target; dirty = true; kick(); });
+  /* ---------- always open on the first frame ---------- */
+  // no browser scroll restoration (reload, back button): the story starts from the top every time
+  try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  function anchored(){
+    var h = location.hash.slice(1);
+    try{ h = decodeURIComponent(h); }catch(e){}
+    return !!h && !!document.getElementById(h);
+  }
+  function restart(){
+    window.scrollTo(0, 0);
+    target = cur = 0; boot = 0; lastF = -1; dirty = true;
+    readScroll(); kick();
+  }
+  if(!anchored()) window.scrollTo(0, 0);
+  // page restored from the back/forward cache: play the story again from the start
+  window.addEventListener('pageshow', function(e){ if(e.persisted && !anchored()) restart(); });
+  // clicking "Authentification" while already on this page brings the visitor back to the start
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('.nav a[aria-current="page"]');
+    if(!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault(); restart();
+  });
+
   layout(); readScroll(); cur = target; fetchAll(); kick();
   window.__authStory = { layout:layout, get progress(){ return cur; }, setProgress:function(p){ target = cur = p; dirty = true; kick(); } };
 })();
