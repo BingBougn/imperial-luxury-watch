@@ -158,7 +158,7 @@ def main():
     for name, raw in extracted.items():
         open(os.path.join(OUT, 'assets', name), 'wb').write(raw)
 
-    for folder, dest in (('maison-seq', 'maison-seq'), ('assets/360', '360')):
+    for folder, dest in (('maison-seq', 'maison-seq'), ('assets/360', '360'), ('auth-seq', 'auth-seq')):
         shutil.copytree(os.path.join(ROOT, folder), os.path.join(OUT, dest), dirs_exist_ok=True)
     if not os.path.exists(os.path.join(OUT, 'watch-sub.png')):
         shutil.copy(os.path.join(ROOT, 'watch-sub-generic.png'), os.path.join(OUT, 'watch-sub.png'))
