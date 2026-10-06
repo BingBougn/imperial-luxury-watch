@@ -319,24 +319,6 @@
   .clock-label[data-pos="3"]{ left:50%; top:86%; transform:translate(-50%,0); margin-top:10px; text-align:center; }
   .clock-label[data-pos="4"]{ right:100%; top:84%; transform:translate(0,-50%); margin-right:var(--lbl-gap); text-align:right; }
   .clock-label[data-pos="5"]{ right:100%; top:16%; transform:translate(0,-50%); margin-right:var(--lbl-gap); text-align:right; }
-  @media(max-width:760px){
-    .clock-scroll{ height:450vh; }
-    .clock-stage{ height:calc(100dvh - 76px); padding:16px 0 24px; }
-    .clock-stage .section-head h2{ font-size:clamp(1.6rem, 6.4vw, 2.1rem); }
-    .clock-stage .section-head p{ font-size:0.94rem; }
-    .clock-frame{ width:min(260px, 58vw, 32vh); margin-top:12px; }
-    .clock-label{
-      position:absolute; left:50%; right:auto; top:100%;
-      transform:translate(-50%,0);
-      width:min(86vw, 42ch); max-width:none;
-      margin:16px 0 0; text-align:center !important;
-      max-height:none; overflow:visible;
-    }
-    .clock-label[data-pos]{ left:50%; right:auto; top:100%; transform:translate(-50%,0); margin:16px 0 0; }
-    .clock-label.is-active{ max-height:none; margin-top:16px; }
-    .clock-label h3{ font-size:1.45rem; }
-    .clock-label p{ font-size:1.02rem; }
-  }
   @media (prefers-reduced-motion: reduce){
     .clock-label{ transition:none; }
   }
@@ -518,8 +500,54 @@
     '.lang button[aria-pressed="true"]{background:var(--text,#eaedee);color:var(--bg,#0c0e10)}' +
     '.lang button:focus-visible{outline:2px solid var(--accent,#4f9fd6);outline-offset:-2px}' +
     '@media(max-width:1120px){.nav-right{gap:12px}}' +
-    '@media(max-width:480px){.nav-right{gap:8px}.lang button{padding:9px 8px;font-size:0.66rem;letter-spacing:0.06em}}';
+    '@media(max-width:480px){.nav-right{gap:8px}.lang button{padding:9px 8px;font-size:0.66rem;letter-spacing:0.06em}}' +
+    '.nav-burger{display:none;position:relative;width:44px;height:44px;margin:0 -8px 0 0;padding:0;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}' +
+    '.nav-burger i{position:absolute;left:11px;width:22px;height:2px;background:var(--text,#eaedee);transition:transform .28s ease,opacity .2s ease,top .28s ease}' +
+    '.nav-burger i:nth-child(1){top:15px}.nav-burger i:nth-child(2){top:21px}.nav-burger i:nth-child(3){top:27px}' +
+    '.nav.menu-open .nav-burger i:nth-child(1){top:21px;transform:rotate(45deg)}.nav.menu-open .nav-burger i:nth-child(2){opacity:0}.nav.menu-open .nav-burger i:nth-child(3){top:21px;transform:rotate(-45deg)}' +
+    '.nav-burger:focus-visible{outline:2px solid var(--accent,#4f9fd6);outline-offset:-4px}' +
+    '.nav-menu{display:none}' +
+    '@media(max-width:860px){' +
+      '.nav-right>.btn{display:none}' +
+      '.nav-burger{display:block}' +
+      '.nav-menu{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;max-height:calc(100vh - 76px);max-height:calc(100dvh - 76px);overflow-y:auto;padding:12px 20px 24px;background:var(--bg,#0c0e10);border-bottom:1px solid var(--hairline,#2a2f33);box-shadow:0 24px 40px rgba(0,0,0,.45);visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .22s ease,transform .22s ease,visibility 0s .22s}' +
+      '.nav.menu-open .nav-menu{visibility:visible;opacity:1;transform:none;transition-delay:0s}' +
+      '.nav-menu a:not(.btn){display:flex;align-items:center;justify-content:space-between;padding:18px 2px;border-bottom:1px solid var(--hairline,#2a2f33);color:var(--text-dim,#9aa3a8);font:500 0.95rem/1.2 "Archivo",sans-serif;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none}' +
+      '.nav-menu a[aria-current]{color:var(--text,#eaedee)}' +
+      '.nav-menu a[aria-current]:after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold,#e8ae31)}' +
+      '.nav-menu .btn{margin-top:22px;width:100%;text-align:center;padding:16px 20px;font-size:0.82rem;letter-spacing:0.08em}' +
+      'html.nav-locked{overflow:hidden}' +
+    '}';
   document.head.appendChild(css);
+
+  var menuNav = null;
+  function closeMenu(){
+    if(!menuNav) return;
+    menuNav.classList.remove('menu-open'); document.documentElement.classList.remove('nav-locked');
+    var b = menuNav.querySelector('.nav-burger'); if(b) b.setAttribute('aria-expanded', 'false');
+  }
+  /* mobile menu: the desktop links are cloned into a panel, with the main call to action at the bottom */
+  function buildMenu(inner, right, cta){
+    var links = inner.querySelector('.nav-links'); if(!links) return;
+    var nav = inner.parentNode; menuNav = nav;
+    var burger = document.createElement('button'); burger.type = 'button'; burger.className = 'nav-burger';
+    burger.setAttribute('aria-label', 'Menu'); burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-controls', 'nav-menu');
+    burger.innerHTML = '<i></i><i></i><i></i>';
+    right.appendChild(burger);
+    var panel = document.createElement('div'); panel.className = 'nav-menu'; panel.id = 'nav-menu';
+    [].forEach.call(links.querySelectorAll('a'), function(a){ panel.appendChild(a.cloneNode(true)); });
+    if(cta){ var c = cta.cloneNode(true); c.className = 'btn btn-accent'; panel.appendChild(c); }
+    nav.appendChild(panel);
+    burger.addEventListener('click', function(){
+      var open = !nav.classList.contains('menu-open');
+      nav.classList.toggle('menu-open', open); document.documentElement.classList.toggle('nav-locked', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    panel.addEventListener('click', function(e){ if(e.target.closest && e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+    document.addEventListener('click', function(e){ if(nav.classList.contains('menu-open') && !nav.contains(e.target)) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 860) closeMenu(); });
+  }
 
   var buttons = [];
   function build(){
@@ -537,6 +565,7 @@
     for(var i = 0; i < kids.length; i++){ if(kids[i].classList.contains('btn')) cta = kids[i]; }
     if(cta) right.appendChild(cta);
     inner.appendChild(right);
+    buildMenu(inner, right, cta);
   }
   function paint(){
     document.documentElement.setAttribute('lang', lang);
@@ -1078,12 +1107,13 @@
   // On wide screens the section opens with a short scroll segment that scrubs
   // the intro footage (73 pre-cut frames, no <video> seeking involved), then
   // the dial takes over. Small screens keep the original dial-only layout.
-  // Compact mode = phones and portrait/narrow windows: the original dial-only layout
-  // (the footage is cropped too hard there and the labels would leave the screen).
-  window.maisonCompact = function(){
+  // Tall layout = phones, portrait tablets and narrow windows: the same footage + dial, but the
+  // watch sits in the upper part of the stage and each step's text goes underneath it.
+  window.maisonTall = function(){
     const w = window.innerWidth;
-    return w <= 760 || w / Math.max(1, window.innerHeight - 76) < 1.3;
+    return w <= 900 || w / Math.max(1, window.innerHeight - 76) < 1.3;
   };
+  window.maisonCompact = function(){ return false; };
   const maisonEl = document.getElementById('maison');
   const FRAMES = 73;
   const introShare = () => window.maisonCompact() ? 0 : 0.3;
@@ -1145,7 +1175,7 @@
     const total = sec.offsetHeight - window.innerHeight;
     const p = total > 0 ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / total)) : 0;
     const intro = introShare();
-    if(maisonEl) maisonEl.classList.toggle('is-compact', window.maisonCompact());
+    if(maisonEl) maisonEl.classList.toggle('is-tall', window.maisonTall());
 
     if(intro > 0){
       preload();
@@ -1289,12 +1319,6 @@
     .clock-label p{ font-size:0.88rem; }
   }
   /* Phones: the step sits under the frame, so the reserve is the stage padding. */
-  @media (max-width:760px) and (max-height:680px){
-    .clock-frame{ width:min(260px, 58vw, 26vh); }
-    .clock-stage .section-head p{ font-size:0.88rem; }
-    .clock-label h3{ font-size:1.25rem; }
-    .clock-label p{ font-size:0.94rem; line-height:1.45; }
-  }
 </style>
 <script>
 /* ---- maison: right-hand rail to jump between steps ---- */
@@ -1370,23 +1394,26 @@
   #maison .clock-stage .section-head h2,
   #maison .clock-stage .section-head p,
   #maison .clock-label{ text-shadow:0 1px 2px rgba(0,0,0,.85), 0 0 16px rgba(0,0,0,.8); }
-  #maison.is-compact .clock-seq{ display:none; }
-  @media(min-width:761px){ #maison.is-compact .clock-frame{ max-width:min(600px, 44vw); max-height:min(600px, 44vw); } }
-  /* compact can trigger from a tall aspect ratio at widths above 760px too (a
-     narrow-but-tall window, split screen, portrait tablet): the side labels
-     must stack under the dial there exactly as they do on phones, or they run
-     off the left/right edges since left:100%/right:100% assumes room that a
-     narrow-but-tall window doesn't have. */
-  #maison.is-compact .clock-label{
+  /* tall layout: footage and dial in the upper part of the stage, the step text right under the dial */
+  #maison.is-tall .clock-scroll{ height:520vh; }
+  #maison.is-tall .clock-stage{ height:calc(100vh - 76px); height:calc(100svh - 76px); min-height:0; padding:16px 0 0; }
+  #maison.is-tall .clock-stage .section-head h2{ font-size:clamp(1.5rem, 6.4vw, 2.1rem); }
+  #maison.is-tall .clock-stage .section-head p{ font-size:0.94rem; }
+  #maison.is-tall .clock-seq{ bottom:auto; }
+  #maison.is-tall .clock-frame{ max-width:none; max-height:none; }
+  #maison.is-tall .clock-label{
     position:absolute; left:50%; right:auto; top:100%;
     transform:translate(-50%,0);
-    width:min(86vw, 42ch); max-width:none;
+    width:min(84vw, 44ch); max-width:none;
     margin:16px 0 0; text-align:center !important;
     max-height:none; overflow:visible;
   }
-  #maison.is-compact .clock-label[data-pos]{ left:50%; right:auto; top:100%; transform:translate(-50%,0); margin:16px 0 0; }
-  #maison.is-compact .clock-label h3{ font-size:1.45rem; }
-  #maison.is-compact .clock-label p{ font-size:1.02rem; }
+  #maison.is-tall .clock-label[data-pos]{ left:50%; right:auto; top:100%; transform:translate(-50%,0); margin:16px 0 0; }
+  #maison.is-tall .clock-label h3{ font-size:1.4rem; }
+  #maison.is-tall .clock-label p{ font-size:1rem; line-height:1.55; }
+  #maison.is-tall .clock-label .yr{ font-size:0.95rem; }
+  @media(max-height:700px){ #maison.is-tall .clock-label h3{ font-size:1.2rem; } #maison.is-tall .clock-label p{ font-size:0.9rem; line-height:1.45; } }
+  @media(max-width:860px){ .clock-rail{ right:4px; padding:12px 6px; gap:12px; } .clock-rail button span{ display:none; } }
   #maison .clock-frame{ z-index:2; }
   #maison .clock-stage > .wrap{ position:relative; z-index:3; }
   #maison .clock-face{ transition:opacity .7s ease; }
@@ -1406,29 +1433,44 @@
   const BEZEL_CX = 958.8, BEZEL_CY = 471, BEZEL_D = 513, BEZEL_FRAC = 0.973, SQUASH = 0.988, FACE_INSET = 0.17;
   const face = frame.querySelector(".clock-face");
   function matchSize(){
-    if(window.maisonCompact()){
-      frame.style.position = "";
-      frame.style.left = "";
-      frame.style.top = "";
-      frame.style.transform = "";
-      frame.style.margin = "";
-      frame.style.flex = "";
-      frame.style.width = "";
-      frame.style.height = "";
-      if(face) face.style.transform = "";
-      return;
-    }
+    const tall = window.maisonTall();
+    const maisonEl = document.getElementById('maison');
+    if(maisonEl) maisonEl.classList.toggle('is-tall', tall);
     const r = stage.getBoundingClientRect();
     if(!r.width || !r.height) return;
+    const seqEl = stage.querySelector('.clock-seq');
+    const imgs = seqEl ? Array.from(seqEl.querySelectorAll('img')) : [];
+    const K = BEZEL_D / BEZEL_FRAC / (1 - FACE_INSET * 2);
+    let cx, cy, framePx;
 
-    // replicate object-fit:cover to find exactly where the bezel lands once
-    // the source frame is scaled+cropped to fill the stage.
-    const scale = Math.max(r.width / SRC_W, r.height / SRC_H);
-    const offsetX = (r.width - SRC_W * scale) / 2;
-    const offsetY = (r.height - SRC_H * scale) / 2;
-    const cx = offsetX + BEZEL_CX * scale;
-    const cy = offsetY + BEZEL_CY * scale;
-    const framePx = Math.max(150, Math.min(BEZEL_D * scale / BEZEL_FRAC / (1 - FACE_INSET * 2), 1600));
+    if(tall){
+      // the footage is scaled so the whole bezel (plus crown) fits the width, then placed with the bezel
+      // centred in the upper part of the stage; the text goes below it.
+      const W = r.width, H = r.height;
+      const labelRoom = H < 640 ? 190 : 225;
+      framePx = Math.max(150, Math.min(W * 1.2, H - labelRoom - 36, 760));
+      const scale = framePx / K;
+      cx = W / 2; cy = 8 + framePx / 2;
+      if(seqEl) seqEl.style.height = (cy + framePx / 2 + 44) + 'px';
+      imgs.forEach(function(im){
+        im.style.right = 'auto'; im.style.bottom = 'auto'; im.style.objectFit = 'fill'; im.style.maxWidth = 'none';
+        im.style.left = (cx - BEZEL_CX * scale) + 'px'; im.style.top = (cy - BEZEL_CY * scale) + 'px';
+        im.style.width = (SRC_W * scale) + 'px'; im.style.height = (SRC_H * scale) + 'px';
+      });
+    } else {
+      if(seqEl) seqEl.style.height = '';
+      imgs.forEach(function(im){
+        ['right','bottom','objectFit','maxWidth','left','top','width','height'].forEach(function(k){ im.style[k] = ''; });
+      });
+      // replicate object-fit:cover to find exactly where the bezel lands once
+      // the source frame is scaled+cropped to fill the stage.
+      const scale = Math.max(r.width / SRC_W, r.height / SRC_H);
+      const offsetX = (r.width - SRC_W * scale) / 2;
+      const offsetY = (r.height - SRC_H * scale) / 2;
+      cx = offsetX + BEZEL_CX * scale;
+      cy = offsetY + BEZEL_CY * scale;
+      framePx = Math.max(150, Math.min(K * scale, 1600));
+    }
 
     frame.style.margin = "0";
     frame.style.flex = "none";
