@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Authentification — Imperial</title>
+<meta name="description" content="Comment Imperial authentifie chaque montre : réception, examen à la loupe, démontage du mouvement, confrontation aux registres, étanchéité et contrôle en 12 points. Garantie 24 mois.">
+<link rel="canonical" href="https://imperialwatch.com/authentification.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#0c0e10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Imperial Luxury Watch">
+<meta property="og:title" content="Authentification — Imperial"><meta property="og:description" content="Comment Imperial authentifie chaque montre : réception, examen à la loupe, démontage du mouvement, confrontation aux registres, étanchéité et contrôle en 12 points. Garantie 24 mois.">
+<meta property="og:url" content="https://imperialwatch.com/authentification.html"><meta property="og:image" content="https://imperialwatch.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+
+</head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --graphite:#0c0e10;
+    --graphite-2:#15181b;
+    --graphite-3:#1e2226;
+    --cobalt-bright:#4f9fd6;
+    --gold:#e8ae31;
+    --bg:var(--graphite);
+    --surface:var(--graphite-2);
+    --surface-2:var(--graphite-3);
+    --hairline:#2a2f33;
+    --text:#eaedee;
+    --text-dim:#9aa3a8;
+    --accent:var(--cobalt-bright);
+    --danger:#e9806f;
+    --ok:#6fcf97;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Archivo',ui-sans-serif,system-ui,sans-serif; font-size:16px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Cormorant',Georgia,serif; font-weight:500; letter-spacing:0.01em; text-wrap:balance; margin:0; }
+  a{ color:inherit; }
+  .wrap{ max-width:1400px; margin:0 auto; padding-left:32px; padding-right:32px; }
+  @media(max-width:640px){ .wrap{ padding-left:20px; padding-right:20px; } }
+
+  /* nav + footer, identical to the other pages */
+  .nav{ position:sticky; top:env(safe-area-inset-top,0px); z-index:50; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--hairline); }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .wordmark{ font-family:'Cormorant',serif; font-size:1.5rem; letter-spacing:0.22em; font-weight:600; text-decoration:none; display:flex; align-items:baseline; gap:8px; color:var(--gold); }
+  .wordmark small{ font-family:'Archivo',sans-serif; font-size:0.5rem; letter-spacing:0.18em; color:var(--text-dim); font-weight:600; }
+  .nav-links{ display:flex; gap:36px; align-items:center; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; }
+  .nav-links a{ text-decoration:none; color:var(--text-dim); transition:color .2s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--accent); }
+  .nav-links a[aria-current]{ color:var(--text); }
+  .btn{
+    font-family:'Archivo',sans-serif; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;
+    padding:12px 22px; border:1px solid var(--text); background:transparent; color:var(--text);
+    cursor:pointer; text-decoration:none; display:inline-block;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn:hover, .btn:focus-visible{ background:var(--text); color:var(--bg); }
+  .btn-accent{ border-color:var(--accent); background:var(--accent); color:#0a1014; }
+  .btn-accent:hover, .btn-accent:focus-visible{ background:transparent; color:var(--accent); }
+  @media(max-width:860px){ .nav-links{ display:none; } }
+  @media(max-width:1000px){ .nav-links{ gap:22px; font-size:0.76rem; } .wordmark small{ display:none; } .nav .btn{ padding:10px 14px; white-space:nowrap; } }
+  @media(max-width:480px){ .nav .btn{ padding:9px 12px; font-size:0.68rem; letter-spacing:0.05em; } .wordmark{ font-size:1.2rem; letter-spacing:0.16em; } }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  footer{ border-top:1px solid var(--hairline); padding:56px 0 40px; margin-top:40px; }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:0.78rem; color:var(--text-dim); }
+
+    /* authentification */
+  .page-head{ padding-top:72px; padding-bottom:44px; border-bottom:1px solid var(--hairline); }
+  .eyebrow{ font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); font-weight:600; margin:0 0 16px; }
+  .page-head h1{ font-size:clamp(2.2rem,4.6vw,3.4rem); font-style:italic; max-width:20ch; line-height:1.12; }
+  .page-head p.lede{ max-width:60ch; color:var(--text-dim); line-height:1.65; margin:20px 0 0; font-size:1.05rem; }
+  .promises{ display:flex; flex-wrap:wrap; gap:10px 28px; margin:30px 0 0; padding:0; list-style:none; font-size:0.86rem; }
+  .promises li{ display:flex; align-items:center; gap:10px; }
+  .promises li::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); flex:none; }
+  .block{ padding:72px 0 8px; }
+  .block h2, .faq h2, .cta h2{ font-size:clamp(1.8rem,2.8vw,2.4rem); font-style:italic; margin-bottom:34px; }
+  .block .intro{ max-width:62ch; color:var(--text-dim); line-height:1.7; margin:-14px 0 36px; }
+  .process{ list-style:none; margin:0; padding:0; counter-reset:s; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 72px; }
+  @media(max-width:860px){ .process{ grid-template-columns:minmax(0,1fr); } }
+  .process li{ counter-increment:s; position:relative; padding:0 0 34px 58px; min-width:0; }
+  .process li::before{ content:counter(s); position:absolute; left:0; top:0; width:38px; height:38px; border:1px solid var(--hairline); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.82rem; color:var(--accent); background:var(--bg); }
+  .process h3{ font-family:'Archivo',sans-serif; font-size:1.02rem; font-weight:600; letter-spacing:0; margin:8px 0 8px; }
+  .process p{ margin:0; color:var(--text-dim); line-height:1.7; font-size:0.95rem; max-width:46ch; }
+  .checks{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:var(--hairline); border:1px solid var(--hairline); }
+  @media(max-width:1000px){ .checks{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:560px){ .checks{ grid-template-columns:minmax(0,1fr); } }
+  .check-group{ background:var(--bg); padding:28px 24px; min-width:0; }
+  .check-group h3{ font-family:'Archivo',sans-serif; font-size:0.74rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:var(--gold); margin:0 0 18px; }
+  .check-group ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .check-group li{ display:flex; gap:12px; font-size:0.95rem; line-height:1.4; }
+  .check-group li::before{ content:""; width:6px; height:6px; margin-top:0.5em; border-radius:50%; background:var(--accent); flex:none; }
+  .assure{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:56px; border-top:1px solid var(--hairline); margin-top:72px; padding-top:56px; }
+  @media(max-width:860px){ .assure{ grid-template-columns:minmax(0,1fr); gap:34px; } }
+  .assure h3{ font-size:1.4rem; font-style:italic; margin:0 0 12px; }
+  .assure p{ margin:0; color:var(--text-dim); line-height:1.7; font-size:0.95rem; }
+  .faq{ border-top:1px solid var(--hairline); padding:72px 0 56px; margin-top:72px; }
+  .faq details{ border-bottom:1px solid var(--hairline); }
+  .faq details:first-of-type{ border-top:1px solid var(--hairline); }
+  .faq summary{ display:flex; justify-content:space-between; align-items:center; gap:20px; cursor:pointer; list-style:none; padding:22px 0; font-size:1.02rem; font-weight:500; }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq summary::after{ content:""; width:9px; height:9px; flex:none; border-right:1.4px solid var(--text-dim); border-bottom:1.4px solid var(--text-dim); transform:rotate(45deg); transition:transform .2s ease; }
+  .faq details[open] summary::after{ transform:rotate(-135deg); }
+  .faq details p{ margin:0 0 24px; color:var(--text-dim); line-height:1.75; max-width:70ch; }
+  .cta{ border-top:1px solid var(--hairline); padding:72px 0 24px; }
+  .cta-actions{ display:flex; flex-wrap:wrap; gap:14px; }
+  .cta-actions .btn{ padding:16px 30px; font-size:0.84rem; }
+  @media(prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+</style>
+
+<script data-i18n>
+(function(){
+  var DICT = {"Sélection": "Selection", "Maison": "The House", "Authentification": "Authentication", "Vendre": "Sell", "Estimation gratuite": "Free valuation", "Site de démonstration": "Demo site", "Des pièces": "Authenticated", "d'exception": "exceptional", "authentifiées": "watches", "Chaque montre est authentifiée par nos experts avant de rejoindre notre sélection, garantie deux ans incluse.": "Every watch is authenticated by our experts before joining our selection, with a two-year warranty included.", "Voir la sélection": "View the selection", "Vendre ma montre": "Sell my watch", "1 200+": "1,200+", "Montres vendues": "Watches sold", "Délai d'expertise": "Appraisal time", "24 mois": "24 months", "Garantie incluse": "Warranty included", "Contrôle d'authenticité": "Authenticity check", "Spécialiste indépendant de la montre suisse d'occasion.": "Independent specialist in pre-owned Swiss watches.", "Imperial achète, authentifie et revend des garde-temps de haute horlogerie. Faites défiler pour suivre notre histoire, minute par minute.": "Imperial buys, authenticates and resells fine watchmaking timepieces. Scroll to follow our story, minute by minute.", "Fondation": "Founding", "Ouverture du premier comptoir d'achat-revente, dédié aux garde-temps suisses d'exception.": "Opening of our first buy-and-sell counter, dedicated to exceptional Swiss timepieces.", "Laboratoire d'authentification": "Authentication laboratory", "Constitution d'une équipe d'horlogers experts, formés aux mouvements des plus grandes manufactures.": "A team of expert watchmakers is formed, trained on the movements of the greatest manufactures.", "Garantie deux ans": "Two-year warranty", "Chaque montre vendue est couverte par une garantie pièces et main-d'œuvre de 24 mois.": "Every watch sold is covered by a 24-month parts and labor warranty.", "Estimation à distance": "Remote valuation", "Lancement du service de reprise en ligne, avec réponse ferme sous 48 heures.": "Launch of the online trade-in service, with a firm answer within 48 hours.", "1 200 montres": "1,200 watches", "Le catalogue dépasse le millier de pièces authentifiées en stock permanent.": "The catalog now exceeds a thousand authenticated pieces in permanent stock.", "La sélection du moment.": "The current selection.", "Une centaine de références en stock à tout instant, chacune contrôlée et garantie par notre atelier.": "About a hundred references in stock at any time, each one inspected and guaranteed by our workshop.", "Voir toute la sélection": "View the full selection", "Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine), révisée par notre atelier.": "904L steel case, black ceramic bezel, complete (original box and papers), serviced by our workshop.", "État": "Condition", "Excellent": "Excellent", "Boîte et papiers": "Box and papers", "Complets": "Complete", "Garantie": "Warranty", "Détails": "Details", "Demander une fiche détaillée": "Request a detailed sheet", "Boîtier or rose 18 carats, cadran opalin, écrin et certificat d'origine.": "18-carat rose gold case, opaline dial, presentation box and original certificate.", "Chronographe manuel, verre hésalite d'origine, révision effectuée en 2025.": "Manual chronograph, original Hesalite crystal, serviced in 2025.", "Le contrôle en 12 points": "The 12-point inspection", "Mouvement": "Movement", "Démontage et contrôle sous loupe": "Disassembly and inspection under a loupe", "Boîtier et glace": "Case and crystal", "Vérification des poinçons": "Hallmark verification", "Numéros de série": "Serial numbers", "Confrontation aux registres du marché": "Cross-checked against market registers", "Authenticité et cohérence des dates": "Authenticity and date consistency", "Étanchéité": "Water resistance", "Test pression à la profondeur d'origine": "Pressure test at the original depth rating", "Révision": "Service", "Nettoyage et lubrification si nécessaire": "Cleaning and lubrication where needed", "Garantie remise": "Warranty on delivery", "24 mois, pièces et main-d'œuvre": "24 months, parts and labor", "Chaque montre qui entre dans notre atelier est démontée, examinée mouvement par mouvement, puis confrontée à nos bases de référence pour écarter toute pièce non conforme.": "Every watch entering our workshop is disassembled, examined movement by movement, then checked against our reference databases to rule out any non-conforming part.", "Nos horlogers vérifient l'authenticité des": "Our watchmakers verify the authenticity of the", "boîtiers": "cases", ", des": ", the", "numéros de série": "serial numbers", "et des": "and the", "papiers": "papers", ", avant de procéder à une révision complète si l'état de la montre le justifie.": ", before carrying out a full service if the condition of the watch warrants it.", "Une montre qui ne passe pas l'ensemble des douze contrôles n'entre jamais dans notre sélection. C'est notre seul critère : la conformité.": "A watch that fails any of the twelve checks never enters our selection. It is our only criterion: conformity.", "Vendre une montre. Une estimation en 48 heures.": "Sell a watch. A valuation in 48 hours.", "Nos experts évaluent votre montre gratuitement et vous proposent une offre ferme, sans engagement de votre part.": "Our experts value your watch free of charge and give you a firm offer, with no obligation on your part.", "Demander une estimation": "Request a valuation", "Achat et revente de montres de luxe certifiées, 9 rue de la Paix, 75002 Paris.": "Purchase and resale of certified luxury watches, 9 rue de la Paix, 75002 Paris.", "Notre histoire": "Our story", "Vendre une montre": "Sell a watch", "Richard Mille RM010, boitier or rose, cadran squelette": "Richard Mille RM010, rose gold case, skeleton dial", "Marques avec lesquelles Imperial travaille": "Brands Imperial works with", "Cadran de montre suisse": "Swiss watch dial", "Montre de plongée acier, lunette noire, cadran noir": "Steel dive watch, black bezel, black dial", "Étapes de notre histoire": "Milestones of our story", "2014 : Fondation": "2014: Founding", "2017 : Laboratoire d'authentification": "2017: Authentication laboratory", "2020 : Garantie deux ans": "2020: Two-year warranty", "2023 : Estimation à distance": "2023: Remote valuation", "2026 : 1 200 montres": "2026: 1,200 watches", "La Sélection — Imperial": "The Selection — Imperial", "La sélection complète.": "The complete selection.", "Chaque montre est démontée, contrôlée en douze points et garantie deux ans avant de rejoindre notre catalogue. Le stock change chaque semaine.": "Every watch is disassembled, inspected across twelve points and guaranteed for two years before joining our catalog. Stock changes every week.", "Filtrer": "Filter", "Tout effacer": "Clear all", "Marque": "Brand", "Réinitialiser": "Reset", "Prix": "Price", "Le prix le plus élevé est 41 000 $": "The highest price is $41,000", "Sélection éditoriale": "Editor's selection", "Prix croissant": "Price, low to high", "Prix décroissant": "Price, high to low", "Année, plus récent": "Year, newest first", "Année, plus ancien": "Year, oldest first", "Aucune montre ne correspond à ces critères pour le moment.": "No watch matches these criteria at the moment.", "Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine).": "904L steel case, black ceramic bezel, complete (original box and papers).", "Demander une fiche": "Request a sheet", "Très bon": "Very good", "Boîte seule": "Box only", "Boîtier acier et or gris, cadran soleillé bleu, bracelet Jubilé.": "Steel and white gold case, blue sunray dial, Jubilee bracelet.", "Boîtier acier, cadran grande tapisserie bleu nuit, bracelet intégré.": "Steel case, midnight blue grande tapisserie dial, integrated bracelet.", "Boîtier acier moyen modèle, lunette vissée, bracelet interchangeable QuickSwitch.": "Steel case, medium size, screw-down bezel, interchangeable QuickSwitch bracelet.", "Boîtier acier 41mm, cadran argenté, index appliqués rhodiés.": "41mm steel case, silver dial, rhodium-plated applied indices.", "Boîtier acier 39mm, cadran noir mat, bracelet acier à maillons.": "39mm steel case, matte black dial, steel link bracelet.", "Boîtier acier 43mm, lunette réglette de calcul, bracelet cuir.": "43mm steel case, slide-rule bezel, leather strap.", "Prix minimum": "Minimum price", "Prix maximum": "Maximum price", "Trier le catalogue": "Sort the catalog", "Estimation gratuite — Imperial": "Free Valuation — Imperial", "Une estimation ferme en 48 heures.": "A firm valuation in 48 hours.", "Décrivez votre montre en quelques minutes. Nos horlogers l'évaluent sur pièces et vous répondent avec une offre chiffrée, valable dix jours, que vous restez libre de refuser.": "Describe your watch in a few minutes. Our watchmakers assess it on its merits and reply with a quoted offer, valid for ten days, which you are free to decline.", "Gratuit, sans engagement": "Free, no obligation", "Réponse sous 48 heures": "Reply within 48 hours", "Offre ferme, pas une fourchette": "A firm offer, not a range", "La montre": "The watch", "Plus vous êtes précis, plus l'offre est juste. La référence figure sur le boîtier, entre les cornes ou sur les papiers.": "The more precise you are, the fairer the offer. The reference is on the case, between the lugs, or on the papers.", "Choisir une marque": "Choose a brand", "Autre marque": "Other brand", "Indiquez la marque de la montre.": "Enter the watch's brand.", "Modèle": "Model", "Indiquez le modèle, par exemple « Datejust 41 ».": "Enter the model, for example “Datejust 41”.", "Nom de la marque": "Brand name", "Écrivez le nom de la marque.": "Write the brand name.", "Référence": "Reference", "(facultatif)": "(optional)", "Année d'achat ou de production": "Year of purchase or production", "Choisir une année": "Choose a year", "Avant 1960": "Before 1960", "Je ne sais pas": "I don't know", "Choisissez une année, ou « Je ne sais pas ».": "Choose a year, or “I don't know”.", "État et accompagnement": "Condition and extras", "État général": "Overall condition", "Bon": "Good", "À réviser": "Needs servicing", "Choisissez l'état qui correspond le mieux à votre montre.": "Choose the condition that best matches your watch.", "Ce que vous avez conservé": "What you kept", "(plusieurs choix possibles)": "(multiple choices allowed)", "Boîte d'origine": "Original box", "Papiers et certificat": "Papers and certificate", "Facture d'achat": "Purchase invoice", "Maillons supplémentaires": "Extra links", "Photos": "Photos", "Facultatif, mais elles accélèrent l'estimation : cadran, fond de boîte, bracelet, numéros de série. Six images au maximum.": "Optional, but they speed up the valuation: dial, caseback, bracelet, serial numbers. Six images maximum.", "Ajouter des photos": "Add photos", "Glissez-déposez ou touchez ici · JPG, PNG ou WebP": "Drag and drop or tap here · JPG, PNG or WebP", "Vos coordonnées": "Your details", "Nom complet": "Full name", "Indiquez votre nom.": "Enter your name.", "Téléphone": "Phone", "Adresse e-mail": "Email address", "Saisissez une adresse e-mail valide, par exemple camille@exemple.fr.": "Enter a valid email address, for example camille@example.com.", "Précisions": "Details", "J'accepte que mes informations soient utilisées par Imperial pour établir cette estimation et me répondre.": "I agree that Imperial may use my information to prepare this valuation and reply to me.", "Cochez la case pour envoyer votre demande.": "Tick the box to send your request.", "Demander mon estimation": "Request my valuation", "Aucun paiement, aucune obligation de vendre.": "No payment, no obligation to sell.", "Demande reçue": "Request received", "Merci": "Thank you", ", nous étudions votre montre.": ", we're reviewing your watch.", "Un horloger examine votre demande et vous écrit à": "A watchmaker is reviewing your request and will write to you at", "avec une offre chiffrée sous 48 heures.": "with a quoted offer within 48 hours.", "Site de démonstration : cette demande n'est pas transmise, elle reste dans votre navigateur.": "Demo site: this request is not sent, it stays in your browser.", "Estimer une autre montre": "Value another watch", "Comment ça se passe": "How it works", "Vous décrivez la montre": "You describe the watch", "Le formulaire prend cinq minutes, photos comprises.": "The form takes five minutes, photos included.", "Estimation sous 48 heures": "Valuation within 48 hours", "Un horloger évalue la pièce d'après le marché et son état.": "A watchmaker values the piece based on the market and its condition.", "Offre ferme": "Firm offer", "Un prix, pas une fourchette, valable dix jours.": "One price, not a range, valid for ten days.", "Expertise et règlement": "Inspection and payment", "Si vous acceptez, nous contrôlons la montre en boutique puis nous vous réglons par virement.": "If you accept, we inspect the watch in store, then pay you by bank transfer.", "Pour une offre plus juste": "For a fairer offer", "Photographiez le cadran à la lumière du jour.": "Photograph the dial in daylight.", "Montrez le fond de boîte et le fermoir.": "Show the caseback and the clasp.", "Rassemblez boîte, papiers et facture.": "Gather the box, papers and invoice.", "Questions fréquentes.": "Frequently asked questions.", "L'estimation coûte-t-elle quelque chose ?": "Does the valuation cost anything?", "Non. L'estimation est gratuite et ne vous engage à rien. Vous décidez ensuite d'accepter ou non notre offre.": "No. The valuation is free and commits you to nothing. You then decide whether or not to accept our offer.", "Quelles montres rachetez-vous ?": "Which watches do you buy?", "Les montres suisses de haute horlogerie, en état de marche, des grandes maisons de notre sélection. Pour une pièce plus rare ou une marque absente de la liste, choisissez « Autre marque » et décrivez-la : nous vous répondrons au cas par cas.": "Swiss fine watchmaking timepieces in working order, from the major houses in our selection. For a rarer piece or a brand missing from the list, choose “Other brand” and describe it: we will reply case by case.", "Que se passe-t-il si l'offre ne me convient pas ?": "What happens if the offer doesn't suit me?", "Rien. Vous gardez votre montre, sans frais ni relance insistante. L'offre reste valable dix jours si vous changez d'avis.": "Nothing. You keep your watch, with no fees and no pushy follow-ups. The offer stays valid for ten days if you change your mind.", "Dois-je envoyer ma montre avant d'avoir un prix ?": "Do I have to send my watch before getting a price?", "Non. L'estimation se fait à distance, à partir de votre description et de vos photos. La montre n'est contrôlée en boutique qu'une fois l'offre acceptée.": "No. The valuation is done remotely, from your description and photos. The watch is only inspected in store once the offer is accepted.", "La boîte et les papiers sont-ils indispensables ?": "Are the box and papers essential?", "Non, mais une montre complète se revend mieux et l'offre en tient compte. Si vous n'avez plus les papiers, indiquez-le simplement : l'authentification en atelier porte sur la montre elle-même.": "No, but a complete watch resells better and the offer takes that into account. If you no longer have the papers, just say so: the workshop authentication concerns the watch itself.", "Ex. : Panerai": "E.g. Panerai", "camille@exemple.fr": "camille@example.com", "Révision récente, rayures, modifications, raison de la vente…": "Recent service, scratches, modifications, reason for selling…", "Non renseignée": "Not provided", "Montre seule": "Watch only", "Aucune": "None", "Accompagnement": "Extras", "Seules les images sont acceptées.": "Only images are accepted.", "Six photos au maximum : retirez-en une pour en ajouter.": "Six photos maximum: remove one to add another.", "Fiche montre — Imperial": "Watch details — Imperial", "Fiche montre": "Watch details", "Fiche introuvable": "Page not found", "Cette montre n'est plus disponible ou le lien est incorrect.": "This watch is no longer available or the link is incorrect.", "Glisser pour tourner": "Drag to rotate", "Vue principale": "Main view", "Vue 360°": "360° view", "Vue 360° — bientôt disponible": "360° view — coming soon", "Montre": "Watch", "Appeler la boutique": "Call the store", "Envoyer un message": "Send a message", "Garantie Imperial": "Imperial warranty", "24 mois pièces et main-d'œuvre sur l'ensemble de notre sélection, sans condition.": "24 months parts and labor across our entire selection, no conditions.", "Contrôle en 12 points": "12-point inspection", "Mouvement, boîtier et numéros de série vérifiés par nos horlogers avant remise.": "Movement, case and serial numbers verified by our watchmakers before delivery.", "Écrin de remise": "Presentation box", "Livrée dans un écrin Imperial avec certificat d'authenticité et carnet d'entretien.": "Delivered in an Imperial presentation box with a certificate of authenticity and a maintenance booklet.", "État de la pièce": "Condition of the piece", "Année": "Year", "Fiche technique": "Technical specifications", "Boîtier": "Case", "Lunette": "Bezel", "Réserve de marche": "Power reserve", "Bracelet": "Bracelet", "Cadran": "Dial", "Certification": "Certification", "Ce qui caractérise cette montre.": "What defines this watch.", "Vous pourriez aussi aimer.": "You might also like.", "Oyster, 41 mm, acier Oystersteel": "Oyster, 41 mm, Oystersteel", "Boîtier acier 904L, lunette céramique noire, complète (boîte et papiers d'origine). Contrôlée et révisée par notre atelier avant remise.": "904L steel case, black ceramic bezel, complete (original box and papers). Inspected and serviced by our workshop before delivery.", "Oyster, 41 mm, acier": "Oyster, 41 mm, steel", "Céramique noire, graduation 60 min": "Black ceramic, 60-minute graduation", "Automatique, calibre 3235": "Automatic, caliber 3235", "Acier à maillons, fermoir extensible": "Steel link bracelet, extendable clasp", "Noir, index luminescents": "Black, luminescent indices", "Chronomètre (COSC)": "Chronometer (COSC)", "Lunette tournante unidirectionnelle": "Unidirectional rotating bezel", "Graduée sur 60 minutes, elle permet de suivre un temps de plongée ou toute autre durée d'un coup d'œil, et ne peut tourner que dans un sens pour éviter de sous-estimer le temps écoulé sous l'eau.": "Graduated over 60 minutes, it lets you track a dive time or any other duration at a glance, and can only turn one way so that elapsed time underwater is never underestimated.", "Cadran haute lisibilité": "High-legibility dial", "Index et aiguilles traités à la matière luminescente pour rester lisibles dans l'obscurité. Les formes simples évitent toute confusion en un coup d'œil.": "Indices and hands treated with luminescent material to stay legible in the dark. Simple shapes prevent any confusion at a glance.", "Boîtier acier renforcé": "Reinforced steel case", "Un acier à haute résistance à la corrosion, choisi pour sa robustesse dans les environnements marins et sa tenue dans le temps.": "A steel with high corrosion resistance, chosen for its robustness in marine environments and its durability over time.", "Oyster, 41 mm, acier et or gris": "Oyster, 41 mm, steel and white gold", "Cannelée, or gris": "Fluted, white gold", "Jubilé, acier et or gris": "Jubilee, steel and white gold", "Soleillé bleu": "Blue sunray", "Cadran soleillé": "Sunray dial", "Un jeu de finitions concentriques qui capte la lumière différemment selon l'angle de vue, donnant au bleu une profondeur qui change au fil de la journée.": "A play of concentric finishes that catches the light differently depending on the viewing angle, giving the blue a depth that shifts throughout the day.", "Bracelet cinq-pièces": "Five-piece bracelet", "Une alternance de maillons larges et étroits qui confère au bracelet une souplesse au poignet supérieure aux modèles à trois maillons.": "An alternation of wide and narrow links that gives the bracelet more flexibility on the wrist than three-link models.", "Fenêtre dateur agrandie": "Magnified date window", "Positionnée à 3 heures, elle bénéficie d'une loupe qui grossit le chiffre pour une lecture rapide sans effort.": "Positioned at 3 o'clock, it has a magnifying lens that enlarges the number for quick, effortless reading.", "Boîtier or rose 18 carats": "18-carat rose gold case", "39 mm, or rose 18 carats": "39 mm, 18-carat rose gold", "Lisse, or rose": "Smooth, rose gold", "Automatique, calibre 324 S C": "Automatic, caliber 324 S C", "Cuir alligator, boucle ardillon or rose": "Alligator leather, rose gold pin buckle", "Opalin": "Opaline", "Poinçon manufacture": "Manufacture hallmark", "Cadran opalin": "Opaline dial", "Un traitement du cadran qui diffuse la lumière de façon douce et uniforme, signature des montres habillées classiques.": "A dial treatment that diffuses light softly and evenly, a signature of classic dress watches.", "Boîtier fin et pur": "Slim, pure case", "Des lignes épurées, sans fioriture, pensées pour se glisser sous une manchette aussi bien qu'à porter à vue.": "Clean, unadorned lines designed to slip under a cuff as well as to be worn in plain sight.", "Mouvement à guichet": "Display-back movement", "Un mouvement à remontage automatique visible par le fond saphir, orné de finitions traditionnelles d'horlogerie.": "An automatic-winding movement visible through the sapphire caseback, decorated with traditional watchmaking finishes.", "Chronographe manuel, verre hésalite": "Manual chronograph, Hesalite crystal", "42 mm, acier": "42 mm, steel", "Tachymètre, aluminium noir": "Tachymeter, black aluminium", "Manuel, calibre 3861": "Manual, caliber 3861", "Acier à maillons": "Steel links", "Noir, verre hésalite": "Black, Hesalite crystal", "Chronographe à remontage manuel": "Manually wound chronograph", "Le geste du remontage quotidien fait partie de l'expérience de la montre, dans la tradition des premiers chronographes de poignet.": "The daily winding gesture is part of the watch experience, in the tradition of the first wrist chronographs.", "Lunette tachymétrique": "Tachymeter bezel", "Graduée pour calculer une vitesse moyenne sur une distance connue, un outil hérité de son usage historique.": "Graduated to calculate an average speed over a known distance, a tool inherited from its historical use.", "Verre hésalite": "Hesalite crystal", "Un verre acrylique plus résistant aux chocs que le saphir, qui peut être repoli en cas de rayure superficielle.": "An acrylic crystal more shock-resistant than sapphire, which can be repolished in case of a surface scratch.", "Boîtier acier, bracelet intégré": "Steel case, integrated bracelet", "39 mm, acier, lunette octogonale à 8 vis": "39 mm, steel, octagonal bezel with 8 screws", "Octogonale, acier": "Octagonal, steel", "Automatique, calibre 4302": "Automatic, caliber 4302", "Intégré, acier, motif tapisserie": "Integrated, steel, tapisserie pattern", "Grande tapisserie bleu nuit": "Midnight blue grande tapisserie", "Bracelet intégré": "Integrated bracelet", "Le bracelet prolonge la ligne du boîtier sans rupture visuelle, un parti pris qui a défini le genre de la montre de sport en acier de luxe.": "The bracelet extends the line of the case without visual break, a design choice that defined the luxury steel sports watch genre.", "Cadran guilloché": "Guilloché dial", "Un motif en relief obtenu par un procédé mécanique traditionnel, qui joue avec la lumière selon l'angle d'observation.": "A raised pattern produced by a traditional mechanical process, which plays with light depending on the viewing angle.", "Lunette à 8 vis apparentes": "Bezel with 8 visible screws", "Les huit vis hexagonales visibles sur la lunette sont devenues une signature esthétique autant que fonctionnelle.": "The eight hexagonal screws visible on the bezel have become as much an aesthetic signature as a functional one.", "Boîtier acier, moyen modèle": "Steel case, medium size", "Moyen modèle, acier": "Medium size, steel", "Vissée, 8 vis apparentes": "Screw-down, 8 visible screws", "Automatique, calibre 1847 MC": "Automatic, caliber 1847 MC", "Interchangeable sans outil": "Interchangeable without tools", "Argenté, chemin de fer": "Silver, railway track", "Boîtier carré aux angles arrondis": "Square case with rounded corners", "Une silhouette dessinée à l'origine pour un usage aviateur, restée pratiquement inchangée depuis sa création.": "A silhouette originally designed for aviator use, remaining practically unchanged since its creation.", "Bracelet à changement rapide": "Quick-change bracelet", "Un système de goupilles permet de changer le bracelet en quelques secondes, sans outil ni passage en atelier.": "A pin system lets you change the bracelet in seconds, with no tools and no visit to the workshop.", "Chemin de fer romain": "Roman railway track", "Les chiffres romains et la piste minutée en retrait rappellent l'origine cartographique du design de ce modèle.": "The Roman numerals and the recessed minute track recall the cartographic origin of this model's design.", "Boîtier acier, 41 mm": "Steel case, 41 mm", "41 mm, acier": "41 mm, steel", "Lisse, acier": "Smooth, steel", "Automatique, calibre 69355": "Automatic, caliber 69355", "Cuir, boucle ardillon": "Leather, pin buckle", "Argenté, index appliqués": "Silver, applied indices", "Boîtier grand format": "Large-format case", "Une carrure généreuse héritée des montres de poche portugaises qui ont inspiré la collection à sa création.": "A generous case inherited from the Portuguese pocket watches that inspired the collection at its creation.", "Chronographe à rattrapante de lecture": "Easy-read chronograph", "Deux compteurs distincts, l'un pour les minutes et l'autre pour les petites secondes, disposés pour une lecture immédiate.": "Two distinct counters, one for minutes and one for small seconds, arranged for immediate reading.", "Cadran chemin de fer": "Railway-track dial", "La piste minutée en bordure du cadran reprend un dessin classique de l'horlogerie de poche.": "The minute track around the edge of the dial echoes a classic pocket-watch design.", "Boîtier acier, 39 mm": "Steel case, 39 mm", "39 mm, acier": "39 mm, steel", "Unidirectionnelle, aluminium noir": "Unidirectional, black aluminium", "Automatique, calibre MT5402": "Automatic, caliber MT5402", "Noir mat": "Matte black", "Diamètre resserré": "Tighter diameter", "Un boîtier de 39 mm qui reprend les proportions des montres de plongée des années 1950, plus proche du poignet que les modèles contemporains.": "A 39 mm case that takes up the proportions of 1950s dive watches, sitting closer to the wrist than contemporary models.", "Lunette bombée": "Domed bezel", "Le profil légèrement bombé de la lunette et du verre évoque directement les modèles vintage dont s'inspire cette pièce.": "The slightly domed profile of the bezel and crystal directly evokes the vintage models this piece draws from.", "Cadran mat sans reflet": "Matte, glare-free dial", "Un traitement mat qui limite les reflets et privilégie la lisibilité en toute condition de lumière.": "A matte treatment that limits reflections and favors legibility in any lighting condition.", "Boîtier acier, 43 mm": "Steel case, 43 mm", "43 mm, acier": "43 mm, steel", "Réglette de calcul, acier": "Slide rule, steel", "Automatique, calibre B01": "Automatic, caliber B01", "Cuir": "Leather", "Noir": "Black", "Lunette réglette de calcul": "Slide-rule bezel", "Une échelle logarithmique bi-directionnelle permettant des calculs de vitesse, consommation ou conversion, héritée de l'aviation civile.": "A bidirectional logarithmic scale for speed, consumption or conversion calculations, inherited from civil aviation.", "Trois compteurs chronographe": "Three chronograph counters", "Une disposition classique à 3, 6 et 9 heures qui distingue les secondes, minutes et heures chronométrées.": "A classic layout at 3, 6 and 9 o'clock that distinguishes timed seconds, minutes and hours.", "Boîtier généreux": "Generous case", "Un diamètre de 43 mm pensé pour une lisibilité maximale des multiples graduations du cadran.": "A 43 mm diameter designed for maximum legibility of the dial's many graduations.", "Réception et identification": "Receipt and identification", "Nous notons la référence, le numéro de série et le calibre, puis nous photographions la montre sous tous les angles avant d'y toucher.": "We record the reference, serial number and caliber, then photograph the watch from every angle before touching it.", "Contrôle extérieur": "Exterior inspection", "Boîtier, poinçons, glace, couronne, poussoirs, cadran, aiguilles, bracelet et fermoir sont examinés à la loupe, pièce par pièce.": "Case, hallmarks, crystal, crown, pushers, dial, hands, bracelet and clasp are examined under a loupe, piece by piece.", "Démontage et examen du mouvement": "Disassembly and movement examination", "Un horloger ouvre la montre et vérifie que le mouvement correspond à la référence : calibre, finitions, pièces d'origine.": "A watchmaker opens the watch and checks that the movement matches the reference: caliber, finishing, original parts.", "Confrontation aux références": "Cross-checking against references", "Le numéro de série est comparé aux registres du marché, et les dates de la boîte et des papiers doivent être cohérentes avec la montre.": "The serial number is compared with market registers, and the dates on the box and papers must be consistent with the watch.", "Étanchéité et marche": "Water resistance and timekeeping", "Test de pression à la profondeur d'origine, puis contrôle de la marche et de la précision.": "Pressure test at the original depth rating, then a check of running and accuracy.", "Décision": "Decision", "Si les douze contrôles sont réussis, la montre est révisée si nécessaire, puis mise en vente avec sa garantie. Sinon, elle n'entre pas dans notre sélection.": "If all twelve checks pass, the watch is serviced where needed and offered for sale with its warranty. Otherwise it does not enter our selection.", "Identité": "Identity", "Numéro de série": "Serial number", "Référence et calibre": "Reference and caliber", "Extérieur": "Exterior", "Boîtier et poinçons": "Case and hallmarks", "Glace": "Crystal", "Couronne et poussoirs": "Crown and pushers", "Cadran et aiguilles": "Dial and hands", "Bracelet et fermoir": "Bracelet and clasp", "Démontage sous loupe": "Disassembly under a loupe", "Marche et précision": "Running and accuracy", "Remise": "Delivery", "Révision et garantie 24 mois": "Service and 24-month warranty", "Qui authentifie les montres ?": "Who authenticates the watches?", "Nos horlogers, dans notre atelier. Aucune montre n'est mise en vente sans avoir été ouverte et contrôlée par l'un d'eux.": "Our watchmakers, in our workshop. No watch is offered for sale without having been opened and inspected by one of them.", "Que recevrai-je avec ma montre ?": "What will I receive with my watch?", "Un écrin Imperial, un certificat d'authenticité et un carnet d'entretien, avec la garantie de 24 mois pièces et main-d'œuvre.": "An Imperial presentation box, a certificate of authenticity and a maintenance booklet, with the 24-month parts and labor warranty.", "Que se passe-t-il si une montre échoue à un contrôle ?": "What happens if a watch fails a check?", "Elle n'entre pas dans notre sélection. Si vous nous l'avez confiée pour une estimation, nous vous l'expliquons clairement et vous la gardez, sans frais.": "It does not enter our selection. If you submitted it for a valuation, we explain why clearly and you keep it, at no cost.", "Puis-je faire authentifier ma propre montre ?": "Can I have my own watch authenticated?", "L'estimation à distance est gratuite : décrivez votre montre et ajoutez des photos. L'authentification complète a lieu en atelier, une fois l'offre acceptée.": "The remote valuation is free: describe your watch and add photos. Full authentication takes place in our workshop once the offer is accepted.", "Authentification — Imperial": "Authentication — Imperial", "Chaque montre est ouverte avant d'être proposée.": "Every watch is opened before it is offered.", "Nous ne revendons rien que nous n'ayons démonté, examiné et confronté à nos références. Voici, étape par étape, comment une montre passe de votre poignet au nôtre, puis au suivant.": "We resell nothing we have not disassembled, examined and checked against our references. Here is, step by step, how a watch travels from your wrist to ours, and then to the next owner.", "Examen par un horloger": "Examined by a watchmaker", "Garantie 24 mois": "24-month warranty", "Le parcours d'une montre": "A watch's journey", "Certificat d'authenticité": "Certificate of authenticity", "Remis avec chaque montre, il consigne la référence, le numéro de série et la date du contrôle.": "Delivered with every watch, it records the reference, serial number and date of inspection.", "Voir le résultat, ou nous confier la vôtre.": "See the result, or entrust us with yours."};
+  var KEY = 'imp-lang', ATTRS = ['placeholder','aria-label','alt','title'];
+  var lang = 'fr', pendingScroll = '';
+  function norm(s){ return s.replace(/ /g,' ').replace(/’/g,"'").replace(/\s+/g,' ').trim(); }
+
+  /* language comes from a "~en" / "~fr" hash suffix (set by our own cross-page links), else from the last choice */
+  var stored = null;
+  try{ stored = localStorage.getItem(KEY); }catch(e){}
+  var m = /~(en|fr)$/.exec(location.hash);
+  if(m){
+    lang = m[1];
+    var clean = location.hash.slice(0, m.index);
+    pendingScroll = clean.slice(1);
+    try{ history.replaceState(null, '', location.pathname + location.search + (clean.length > 1 ? clean : '')); }catch(e){}
+    try{ localStorage.setItem(KEY, lang); }catch(e){}
+  } else if(stored === 'en' || stored === 'fr'){ lang = stored; }
+
+  window.addEventListener('hashchange', function(){
+    var mm = /~(en|fr)$/.exec(location.hash); if(!mm) return;
+    var c = location.hash.slice(0, mm.index);
+    try{ history.replaceState(null, '', location.pathname + location.search + (c.length > 1 ? c : '')); }catch(e){}
+    if(mm[1] !== lang && window.__setImpLang) window.__setImpLang(mm[1]);
+  });
+
+  function price(k){ var r = /^(\d{1,3}(?: \d{3})*) \$$/.exec(k); return r ? '$' + r[1].replace(/ /g, ',') : undefined; }
+  function rules(k){
+    var r, p = price(k); if(p !== undefined) return p;
+    if((r = /^Réf\. (.*)$/.exec(k))) return 'Ref. ' + r[1].replace('Pièce phare', 'Flagship piece');
+    if((r = /^Référence (.*)$/.exec(k))) return 'Reference ' + r[1];
+    if((r = /^(\d+) montres?$/.exec(k))) return r[1] + (r[1] === '1' ? ' watch' : ' watches');
+    if((r = /^(\d+) sélectionnées?$/.exec(k))) return r[1] + ' selected';
+    if((r = /^(\d+) jointes?$/.exec(k))) return r[1] + ' attached';
+    if((r = /^Retirer la photo (\d+)$/.exec(k))) return 'Remove photo ' + r[1];
+    return undefined;
+  }
+  function tr(text){
+    var k = norm(text); if(!k) return text;
+    var out = DICT[k]; if(out === undefined) out = rules(k);
+    if(out === undefined) return text;
+    return /^\s*/.exec(text)[0] + out + /\s*$/.exec(text)[0];
+  }
+
+  var orig = new WeakMap(), setv = new WeakMap();
+  function skip(n){
+    var p = n.parentElement; if(!p) return true;
+    if(/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT)$/.test(p.tagName)) return true;
+    return !!(p.closest && p.closest('[data-no-i18n]'));
+  }
+  function doText(n){
+    if(skip(n)) return;
+    var cur = n.nodeValue;
+    if(setv.has(n) && cur === setv.get(n)){
+      if(lang === 'fr'){ n.nodeValue = orig.get(n); setv.delete(n); orig.delete(n); }
+      return;
+    }
+    if(lang === 'en'){
+      var t = tr(cur);
+      if(t !== cur){ orig.set(n, cur); setv.set(n, t); n.nodeValue = t; }
+    }
+  }
+  function doAttrs(el){
+    if(el.closest && el.closest('[data-no-i18n]')) return;
+    for(var i = 0; i < ATTRS.length; i++){
+      var a = ATTRS[i], v = el.getAttribute(a); if(v === null) continue;
+      var st = el.__i18n || (el.__i18n = {}), rec = st[a];
+      if(rec && v === rec.set){ if(lang === 'fr'){ el.setAttribute(a, rec.orig); delete st[a]; } continue; }
+      if(lang === 'en'){ var t = tr(v); if(t !== v){ st[a] = {orig:v, set:t}; el.setAttribute(a, t); } }
+    }
+  }
+  function walk(root){
+    if(root.nodeType === 3){ doText(root); return; }
+    if(root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+    if(root.nodeType === 1) doAttrs(root);
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n;
+    while((n = w.nextNode())) doText(n);
+    if(root.querySelectorAll){
+      var els = root.querySelectorAll('[placeholder],[aria-label],[alt],[title]');
+      for(var i = 0; i < els.length; i++) doAttrs(els[i]);
+    }
+  }
+
+  var H0 = /^(?:index|selection|detail|estimation|authentification)\.html(?:#|$)/;
+  function syncLinks(){
+    var as = document.querySelectorAll('a[href]');
+    for(var i = 0; i < as.length; i++){
+      var a = as[i], h0 = a.getAttribute('data-h0');
+      if(h0 === null){
+        var h = a.getAttribute('href');
+        if(!H0.test(h)){ a.setAttribute('data-h0', '-'); continue; }
+        a.setAttribute('data-h0', h); h0 = h;
+      }
+      if(h0 === '-') continue;
+      var at = h0.indexOf('#'), base = at > -1 ? h0.slice(0, at) : h0, frag = at > -1 ? h0.slice(at) : '#';
+      var want = lang === 'en' ? base + frag + '~en' : h0;
+      if(a.getAttribute('href') !== want) a.setAttribute('href', want);
+    }
+  }
+
+  var css = document.createElement('style');
+  css.textContent =
+    '.nav-right{display:flex;align-items:center;gap:16px}' +
+    '.lang{display:flex;border:1px solid var(--hairline,#2a2f33)}' +
+    '.lang button{background:none;border:0;margin:0;color:var(--text-dim,#9aa3a8);font:600 0.72rem/1 "Archivo",sans-serif;letter-spacing:0.1em;padding:10px 11px;cursor:pointer;transition:background .15s ease,color .15s ease}' +
+    '.lang button:hover{color:var(--text,#eaedee)}' +
+    '.lang button[aria-pressed="true"]{background:var(--text,#eaedee);color:var(--bg,#0c0e10)}' +
+    '.lang button:focus-visible{outline:2px solid var(--accent,#4f9fd6);outline-offset:-2px}' +
+    '@media(max-width:1000px){.nav-right{gap:12px}}' +
+    '@media(max-width:480px){.nav-right{gap:8px}.lang button{padding:9px 8px;font-size:0.66rem;letter-spacing:0.06em}}';
+  document.head.appendChild(css);
+
+  var buttons = [];
+  function build(){
+    var inner = document.querySelector('.nav-inner'); if(!inner) return;
+    var right = document.createElement('div'); right.className = 'nav-right';
+    var box = document.createElement('div'); box.className = 'lang'; box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'Langue / Language'); box.setAttribute('data-no-i18n', '');
+    ['fr','en'].forEach(function(l){
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = l.toUpperCase(); b.setAttribute('data-l', l);
+      b.setAttribute('lang', l); b.setAttribute('aria-label', l === 'fr' ? 'Français' : 'English');
+      b.addEventListener('click', function(){ setLang(l); });
+      box.appendChild(b); buttons.push(b);
+    });
+    right.appendChild(box);
+    var cta = null, kids = inner.children;
+    for(var i = 0; i < kids.length; i++){ if(kids[i].classList.contains('btn')) cta = kids[i]; }
+    if(cta) right.appendChild(cta);
+    inner.appendChild(right);
+  }
+  function paint(){
+    document.documentElement.setAttribute('lang', lang);
+    buttons.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-l') === lang ? 'true' : 'false'); });
+  }
+  function setLang(l){
+    lang = l;
+    try{ localStorage.setItem(KEY, l); }catch(e){}
+    paint(); walk(document.documentElement); syncLinks();
+  }
+
+  window.__setImpLang = setLang;
+  function init(){
+    build(); paint();
+    walk(document.documentElement); syncLinks();
+    var pend = false;
+    new MutationObserver(function(muts){
+      for(var i = 0; i < muts.length; i++){
+        var mu = muts[i];
+        if(mu.type === 'characterData') doText(mu.target);
+        else if(mu.type === 'attributes') doAttrs(mu.target);
+        else { for(var j = 0; j < mu.addedNodes.length; j++) walk(mu.addedNodes[j]); }
+      }
+      if(!pend){ pend = true; setTimeout(function(){ pend = false; syncLinks(); }, 60); }
+    }).observe(document.documentElement, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:ATTRS});
+    if(pendingScroll){
+      window.addEventListener('load', function(){
+        setTimeout(function(){ var t = document.getElementById(decodeURIComponent(pendingScroll)); if(t) t.scrollIntoView(); }, 350);
+      });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="wordmark">IMPERIAL <small>LUXURY&nbsp;WATCH</small></a>
+    <div class="nav-links">
+      <a href="selection.html">Sélection</a>
+      <a href="index.html#maison">Maison</a>
+      <a href="authentification.html" aria-current="page">Authentification</a>
+      <a href="estimation.html">Vendre</a>
+    </div>
+    <a href="estimation.html" class="btn">Estimation gratuite</a>
+  </div>
+</nav>
+<header class="page-head wrap">
+  <p class="eyebrow">Authentification</p>
+  <h1>Chaque montre est ouverte avant d'être proposée.</h1>
+  <p class="lede">Nous ne revendons rien que nous n'ayons démonté, examiné et confronté à nos références. Voici, étape par étape, comment une montre passe de votre poignet au nôtre, puis au suivant.</p>
+  <ul class="promises"><li>Contrôle en 12 points</li><li>Examen par un horloger</li><li>Garantie 24 mois</li></ul>
+</header>
+
+<main class="wrap">
+  <section class="block">
+    <h2>Le parcours d'une montre</h2>
+    <ol class="process"><li><h3>Réception et identification</h3><p>Nous notons la référence, le numéro de série et le calibre, puis nous photographions la montre sous tous les angles avant d'y toucher.</p></li><li><h3>Contrôle extérieur</h3><p>Boîtier, poinçons, glace, couronne, poussoirs, cadran, aiguilles, bracelet et fermoir sont examinés à la loupe, pièce par pièce.</p></li><li><h3>Démontage et examen du mouvement</h3><p>Un horloger ouvre la montre et vérifie que le mouvement correspond à la référence : calibre, finitions, pièces d'origine.</p></li><li><h3>Confrontation aux références</h3><p>Le numéro de série est comparé aux registres du marché, et les dates de la boîte et des papiers doivent être cohérentes avec la montre.</p></li><li><h3>Étanchéité et marche</h3><p>Test de pression à la profondeur d'origine, puis contrôle de la marche et de la précision.</p></li><li><h3>Décision</h3><p>Si les douze contrôles sont réussis, la montre est révisée si nécessaire, puis mise en vente avec sa garantie. Sinon, elle n'entre pas dans notre sélection.</p></li></ol>
+  </section>
+
+  <section class="block">
+    <h2>Le contrôle en 12 points</h2>
+    <p class="intro">Une montre qui ne passe pas l'ensemble des douze contrôles n'entre jamais dans notre sélection. C'est notre seul critère : la conformité.</p>
+    <div class="checks"><div class="check-group"><h3>Identité</h3><ul><li>Numéro de série</li><li>Référence et calibre</li><li>Boîte et papiers</li></ul></div><div class="check-group"><h3>Extérieur</h3><ul><li>Boîtier et poinçons</li><li>Glace</li><li>Couronne et poussoirs</li><li>Cadran et aiguilles</li><li>Bracelet et fermoir</li></ul></div><div class="check-group"><h3>Mouvement</h3><ul><li>Démontage sous loupe</li><li>Marche et précision</li><li>Étanchéité</li></ul></div><div class="check-group"><h3>Remise</h3><ul><li>Révision et garantie 24 mois</li></ul></div></div>
+  </section>
+
+  <section class="assure">
+    <div><h3>Garantie Imperial</h3><p>24 mois pièces et main-d'œuvre sur l'ensemble de notre sélection, sans condition.</p></div>
+    <div><h3>Certificat d'authenticité</h3><p>Remis avec chaque montre, il consigne la référence, le numéro de série et la date du contrôle.</p></div>
+    <div><h3>Écrin de remise</h3><p>Livrée dans un écrin Imperial avec certificat d'authenticité et carnet d'entretien.</p></div>
+  </section>
+
+  <section class="faq">
+    <h2>Questions fréquentes.</h2>
+    <details><summary>Qui authentifie les montres ?</summary><p>Nos horlogers, dans notre atelier. Aucune montre n'est mise en vente sans avoir été ouverte et contrôlée par l'un d'eux.</p></details><details><summary>Que recevrai-je avec ma montre ?</summary><p>Un écrin Imperial, un certificat d'authenticité et un carnet d'entretien, avec la garantie de 24 mois pièces et main-d'œuvre.</p></details><details><summary>Que se passe-t-il si une montre échoue à un contrôle ?</summary><p>Elle n'entre pas dans notre sélection. Si vous nous l'avez confiée pour une estimation, nous vous l'expliquons clairement et vous la gardez, sans frais.</p></details><details><summary>Puis-je faire authentifier ma propre montre ?</summary><p>L'estimation à distance est gratuite : décrivez votre montre et ajoutez des photos. L'authentification complète a lieu en atelier, une fois l'offre acceptée.</p></details>
+  </section>
+
+  <section class="cta">
+    <h2>Voir le résultat, ou nous confier la vôtre.</h2>
+    <div class="cta-actions"><a class="btn btn-accent" href="selection.html">Voir la sélection</a><a class="btn" href="estimation.html">Vendre ma montre</a></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Imperial Luxury Watch, 9 rue de la Paix, 75002 Paris</span>
+    
+  </div>
+</footer>
+
+</body></html>
