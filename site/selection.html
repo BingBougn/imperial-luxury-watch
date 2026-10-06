@@ -277,7 +277,7 @@
   window.addEventListener('pageshow', function(e){ if(e.persisted && !wantsAnchor()) goTop(); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('.nav a[aria-current="page"], .nav a.wordmark');
-    if(!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if(!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if(!a.hasAttribute('aria-current') && !/^#(~(en|fr))?$/.test(a.getAttribute('href') || '')) return;
     e.preventDefault(); goTop();
   });
@@ -469,7 +469,7 @@
   <div class="wrap nav-inner">
     <a href="index.html" class="wordmark">IMPERIAL <small>LUXURY&nbsp;WATCH</small></a>
     <div class="nav-links">
-      <a href="selection.html" aria-current="page">Sélection</a>
+      <a href="#" data-h0="-" aria-current="page">Sélection</a>
       <a href="index.html#maison">Maison</a>
       <a href="authentification.html">Authentification</a>
       <a href="estimation.html">Vendre</a>

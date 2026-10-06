@@ -444,7 +444,7 @@
   window.addEventListener('pageshow', function(e){ if(e.persisted && !wantsAnchor()) goTop(); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('.nav a[aria-current="page"], .nav a.wordmark');
-    if(!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if(!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if(!a.hasAttribute('aria-current') && !/^#(~(en|fr))?$/.test(a.getAttribute('href') || '')) return;
     e.preventDefault(); goTop();
   });
