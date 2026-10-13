@@ -1,0 +1,3 @@
+# Netlify publishes the built site, not the repository root.
+[build]
+  publish = "site"
