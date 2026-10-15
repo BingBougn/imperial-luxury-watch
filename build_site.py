@@ -184,6 +184,19 @@ def main():
     urls = ''.join('<url><loc>%s%s</loc></url>' % (CONFIG['domain'], p['path']) for p in PAGES.values() if p['path'] != '/detail.html')
     open(os.path.join(OUT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + '</urlset>')
     open(os.path.join(OUT, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n' % CONFIG['domain'])
+    # cache rules (read by Cloudflare Pages and Netlify): hashed assets never change, frame sequences keep a day
+    open(os.path.join(OUT, '_headers'), 'w').write('/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/maison-seq/*
+  Cache-Control: public, max-age=86400
+/auth-seq/*
+  Cache-Control: public, max-age=86400
+/360/*
+  Cache-Control: public, max-age=86400
+')
     print('built', OUT)
     for n in PAGES:
         print(' ', n, os.path.getsize(os.path.join(OUT, n)) // 1024, 'KB')
