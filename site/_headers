@@ -1,0 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/maison-seq/*
+  Cache-Control: public, max-age=86400
+/auth-seq/*
+  Cache-Control: public, max-age=86400
+/360/*
+  Cache-Control: public, max-age=86400
