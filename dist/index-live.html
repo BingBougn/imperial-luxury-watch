@@ -706,27 +706,22 @@
         <div class="clock-pivot"></div>
         </div>
         <div class="clock-label" data-pos="1">
-          <span class="yr">1</span>
           <h3>Fondation</h3>
           <p>Ouverture du premier comptoir d'achat-revente, dédié aux garde-temps suisses d'exception.</p>
         </div>
         <div class="clock-label" data-pos="2">
-          <span class="yr">2</span>
           <h3>Laboratoire d'authentification</h3>
           <p>Constitution d'une équipe d'horlogers experts, formés aux mouvements des plus grandes manufactures.</p>
         </div>
         <div class="clock-label" data-pos="3">
-          <span class="yr">3</span>
           <h3>Garantie deux ans</h3>
           <p>Chaque montre vendue est couverte par une garantie pièces et main-d'œuvre de 24 mois.</p>
         </div>
         <div class="clock-label" data-pos="4">
-          <span class="yr">4</span>
           <h3>Estimation à distance</h3>
           <p>Lancement du service de reprise en ligne, avec réponse ferme sous 48 heures.</p>
         </div>
         <div class="clock-label" data-pos="5">
-          <span class="yr">5</span>
           <h3>1 200 montres</h3>
           <p>Le catalogue dépasse le millier de pièces authentifiées en stock permanent.</p>
         </div>
@@ -1360,7 +1355,7 @@
     const b = document.createElement('button');
     b.type = 'button';
     const span = document.createElement('span');
-    span.textContent = year ? year.textContent : String(i + 1);
+    span.textContent = title ? title.textContent : String(i + 1);
     b.appendChild(span);
     b.appendChild(document.createElement('i'));
     b.setAttribute('aria-label', (year ? year.textContent + ' : ' : '') + (title ? title.textContent : ''));
